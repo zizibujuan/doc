@@ -10,3 +10,18 @@
 [submodule "server/bundles/com.zizibujuan.drip.server.exception"]
 	path = server/bundles/com.zizibujuan.drip.server.exception
 	url = git@github.com:zizibujuan/server.exception.git
+[submodule "client/bundles/com.zizibujuan.drip.client.ace/static/ace"]
+	path = client/bundles/com.zizibujuan.drip.client.ace/static/ace
+	url = https://github.com/ajaxorg/ace.git
+[submodule "client/bundles/com.zizibujuan.drip.client.dojo/static/dojo"]
+	path = client/bundles/com.zizibujuan.drip.client.dojo/static/dojo
+	url = https://github.com/dojo/dojo.git
+[submodule "client/bundles/com.zizibujuan.drip.client.marked/static/marked"]
+	path = client/bundles/com.zizibujuan.drip.client.marked/static/marked
+	url = https://github.com/chjj/marked.git
+[submodule "client/bundles/com.zizibujuan.drip.client.highlight/static/highlight"]
+	path = client/bundles/com.zizibujuan.drip.client.highlight/static/highlight
+	url = https://github.com/isagalaev/highlight.js.git
+[submodule "client/bundles/com.zizibujuan.drip.client.dojo/static/dijit"]
+	path = client/bundles/com.zizibujuan.drip.client.dojo/static/dijit
+	url = https://github.com/dojo/dijit.git
