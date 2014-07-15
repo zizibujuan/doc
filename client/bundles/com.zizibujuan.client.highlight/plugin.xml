@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension
+         point="org.eclipse.equinox.http.registry.httpcontexts">
+         <httpcontext
+            id="com.zizibujuan.client.httpcontext.highlight">
+	         <resource-mapping
+	               bundle="com.zizibujuan.client.highlight"
+	               path="/static/highlight/src">
+	         </resource-mapping>
+         </httpcontext>
+    </extension>
+	<extension
+         point="org.eclipse.equinox.http.registry.resources">
+      <resource
+            alias="/highlight"
+            httpcontextId="com.zizibujuan.client.httpcontext.highlight">
+      </resource>
+    </extension>
+</plugin>

@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: client.highlight
+Bundle-SymbolicName: com.zizibujuan.client.highlight;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-Vendor: zizibujuan.com

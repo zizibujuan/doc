@@ -25,3 +25,15 @@
 [submodule "client/bundles/com.zizibujuan.drip.client.dojo/static/dijit"]
 	path = client/bundles/com.zizibujuan.drip.client.dojo/static/dijit
 	url = https://github.com/dojo/dijit.git
+[submodule "client/bundles/com.zizibujuan.client.ace/static/ace"]
+	path = client/bundles/com.zizibujuan.client.ace/static/ace
+	url = https://github.com/ajaxorg/ace.git
+[submodule "client/bundles/com.zizibujuan.client.marked/static/marked"]
+	path = client/bundles/com.zizibujuan.client.marked/static/marked
+	url = https://github.com/chjj/marked.git
+[submodule "client/bundles/com.zizibujuan.client.highlight/static/highlight"]
+	path = client/bundles/com.zizibujuan.client.highlight/static/highlight
+	url = https://github.com/isagalaev/highlight.js.git
+[submodule "client/bundles/com.zizibujuan.client.dojo"]
+	path = client/bundles/com.zizibujuan.client.dojo
+	url = git@github.com:zizibujuan/dojo.git
