@@ -13,21 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.eclipse.core.filesystem.EFS;
-import org.eclipse.core.filesystem.IFileStore;
-import org.eclipse.core.runtime.CoreException;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import com.zizibujuan.drip.server.doc.model.ProjectInfo;
-import com.zizibujuan.drip.server.service.ApplicationPropertyService;
-import com.zizibujuan.drip.server.servlet.ServiceHolder;
-import com.zizibujuan.drip.server.tests.AbstractServletTests;
-import com.zizibujuan.drip.server.util.GitConstants;
-import com.zizibujuan.drip.server.util.dao.DatabaseUtil;
-import com.zizibujuan.drip.server.util.json.JsonUtil;
 
 /**
  * 项目维护测试用例

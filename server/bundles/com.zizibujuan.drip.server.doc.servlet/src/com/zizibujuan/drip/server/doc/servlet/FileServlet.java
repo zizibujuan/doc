@@ -28,14 +28,15 @@ import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
+import com.zizibujuan.cm.server.service.ApplicationPropertyService;
+import com.zizibujuan.cm.server.servlets.CMServiceHolder;
 import com.zizibujuan.drip.server.doc.model.NewFileForm;
-import com.zizibujuan.drip.server.model.UserInfo;
-import com.zizibujuan.drip.server.service.ApplicationPropertyService;
-import com.zizibujuan.drip.server.util.GitConstants;
+import com.zizibujuan.drip.server.util.constant.GitConstants;
 import com.zizibujuan.drip.server.util.servlet.BaseServlet;
 import com.zizibujuan.drip.server.util.servlet.RequestUtil;
 import com.zizibujuan.drip.server.util.servlet.ResponseUtil;
 import com.zizibujuan.drip.server.util.servlet.UserSession;
+import com.zizibujuan.useradmin.server.model.UserInfo;
 
 /**
  * 文件管理
@@ -50,7 +51,7 @@ public class FileServlet extends BaseServlet {
 	private ApplicationPropertyService applicationPropertyService;
 	
 	public FileServlet(){
-		applicationPropertyService = ServiceHolder.getDefault().getApplicationPropertyService();
+		applicationPropertyService = CMServiceHolder.getDefault().getApplicationPropertyService();
 	}
 
 	/**

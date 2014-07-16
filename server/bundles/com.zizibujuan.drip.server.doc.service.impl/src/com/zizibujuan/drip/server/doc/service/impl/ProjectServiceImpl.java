@@ -16,14 +16,14 @@ import org.eclipse.jgit.lib.StoredConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.zizibujuan.drip.server.dao.ApplicationPropertyDao;
-import com.zizibujuan.drip.server.dao.UserDao;
+import com.zizibujuan.cm.server.dao.ApplicationPropertyDao;
 import com.zizibujuan.drip.server.doc.dao.ProjectDao;
 import com.zizibujuan.drip.server.doc.model.ProjectInfo;
 import com.zizibujuan.drip.server.doc.service.ProjectService;
-import com.zizibujuan.drip.server.model.UserInfo;
 import com.zizibujuan.drip.server.util.Environment;
-import com.zizibujuan.drip.server.util.GitConstants;
+import com.zizibujuan.drip.server.util.constant.GitConstants;
+import com.zizibujuan.useradmin.server.dao.UserDao;
+import com.zizibujuan.useradmin.server.model.UserInfo;
 
 /**
  * 项目维护服务实现类
@@ -34,7 +34,7 @@ import com.zizibujuan.drip.server.util.GitConstants;
 public class ProjectServiceImpl implements ProjectService {
 	private Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
 	
-	private static final String DEFAULT_FILE_NAME = "README";
+	private static final String DEFAULT_FILE_NAME = "README.md";
 
 	private UserDao userDao;
 	private ApplicationPropertyDao applicationPropertyDao;

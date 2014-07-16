@@ -16,9 +16,10 @@ import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 
+import com.zizibujuan.cm.server.service.ApplicationPropertyService;
+import com.zizibujuan.cm.server.servlets.CMServiceHolder;
 import com.zizibujuan.drip.server.doc.model.FileInfo;
-import com.zizibujuan.drip.server.service.ApplicationPropertyService;
-import com.zizibujuan.drip.server.util.GitConstants;
+import com.zizibujuan.drip.server.util.constant.GitConstants;
 import com.zizibujuan.drip.server.util.servlet.BaseServlet;
 import com.zizibujuan.drip.server.util.servlet.ResponseUtil;
 
@@ -34,7 +35,7 @@ public class BlobServlet extends BaseServlet {
 	private ApplicationPropertyService applicationPropertyService;
 	
 	public BlobServlet(){
-		applicationPropertyService = ServiceHolder.getDefault().getApplicationPropertyService();
+		applicationPropertyService = CMServiceHolder.getDefault().getApplicationPropertyService();
 	}
 	
 	@Override

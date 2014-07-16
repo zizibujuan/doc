@@ -12,23 +12,10 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.IOUtils;
-import org.eclipse.core.filesystem.EFS;
-import org.eclipse.core.filesystem.IFileStore;
-import org.eclipse.core.runtime.CoreException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import com.zizibujuan.drip.server.doc.model.FileInfo;
-import com.zizibujuan.drip.server.service.ApplicationPropertyService;
-import com.zizibujuan.drip.server.servlet.ServiceHolder;
-import com.zizibujuan.drip.server.tests.AbstractServletTests;
-import com.zizibujuan.drip.server.util.GitConstants;
-import com.zizibujuan.drip.server.util.dao.DatabaseUtil;
 
 /**
  * 文件维护测试用例

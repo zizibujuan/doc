@@ -26,17 +26,18 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
+import com.zizibujuan.cm.server.service.ApplicationPropertyService;
+import com.zizibujuan.cm.server.servlets.CMServiceHolder;
 import com.zizibujuan.drip.server.doc.model.CommitInfo;
 import com.zizibujuan.drip.server.doc.model.LastLogInfo;
 import com.zizibujuan.drip.server.doc.model.ProjectInfo;
 import com.zizibujuan.drip.server.doc.service.ProjectService;
-import com.zizibujuan.drip.server.model.UserInfo;
-import com.zizibujuan.drip.server.service.ApplicationPropertyService;
-import com.zizibujuan.drip.server.util.GitConstants;
+import com.zizibujuan.drip.server.util.constant.GitConstants;
 import com.zizibujuan.drip.server.util.servlet.BaseServlet;
 import com.zizibujuan.drip.server.util.servlet.RequestUtil;
 import com.zizibujuan.drip.server.util.servlet.ResponseUtil;
 import com.zizibujuan.drip.server.util.servlet.UserSession;
+import com.zizibujuan.useradmin.server.model.UserInfo;
 
 /**
  * 项目管理  TODO:名称改为 主题？
@@ -54,7 +55,7 @@ public class ProjectServlet extends BaseServlet {
 	
 	public ProjectServlet(){
 		projectService = ServiceHolder.getDefault().getProjectService();
-		applicationPropertyService = ServiceHolder.getDefault().getApplicationPropertyService();
+		applicationPropertyService = CMServiceHolder.getDefault().getApplicationPropertyService();
 	}
 	
 	/**

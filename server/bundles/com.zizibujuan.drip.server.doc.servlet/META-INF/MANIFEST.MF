@@ -6,12 +6,14 @@ Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: com.zizibujuan.drip.server.doc.servlet.Activator
 Bundle-Vendor: zizibujuan.com
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: com.zizibujuan.drip.server.doc.model,
+Import-Package: com.zizibujuan.cm.server.service,
+ com.zizibujuan.cm.server.servlets,
+ com.zizibujuan.drip.server.doc.model,
  com.zizibujuan.drip.server.doc.service,
- com.zizibujuan.drip.server.model,
- com.zizibujuan.drip.server.service,
  com.zizibujuan.drip.server.util,
+ com.zizibujuan.drip.server.util.constant,
  com.zizibujuan.drip.server.util.servlet,
+ com.zizibujuan.useradmin.server.model,
  javax.servlet,
  javax.servlet.http,
  org.apache.commons.io;version="2.4.0",
