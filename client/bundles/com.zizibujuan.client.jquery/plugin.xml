@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+<extension
+         point="org.eclipse.equinox.http.registry.httpcontexts">
+         <httpcontext
+            id="com.zizibujuan.client.httpcontext.jquery">
+	         <resource-mapping
+	               bundle="com.zizibujuan.client.jquery"
+	               path="/static/jquery">
+	         </resource-mapping>
+         </httpcontext>
+    </extension>
+	<extension
+         point="org.eclipse.equinox.http.registry.resources">
+      <resource
+            alias="/jquery"
+            httpcontextId="com.zizibujuan.client.httpcontext.jquery">
+      </resource>
+    </extension>
+</plugin>

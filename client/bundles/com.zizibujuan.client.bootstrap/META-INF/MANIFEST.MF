@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: client.bootstrap
+Bundle-SymbolicName: com.zizibujuan.client.bootstrap;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-Vendor: zizibujuan.com

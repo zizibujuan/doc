@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+<extension
+         point="org.eclipse.equinox.http.registry.httpcontexts">
+         <httpcontext
+            id="com.zizibujuan.client.httpcontext.bootstrap">
+	         <resource-mapping
+	               bundle="com.zizibujuan.client.bootstrap"
+	               path="/static/bootstrap">
+	         </resource-mapping>
+         </httpcontext>
+    </extension>
+	<extension
+         point="org.eclipse.equinox.http.registry.resources">
+      <resource
+            alias="/bootstrap"
+            httpcontextId="com.zizibujuan.client.httpcontext.bootstrap">
+      </resource>
+    </extension>
+</plugin>
