@@ -38,6 +38,8 @@ import com.zizibujuan.drip.server.util.servlet.ResponseUtil;
 import com.zizibujuan.drip.server.util.servlet.UserSession;
 import com.zizibujuan.useradmin.server.model.UserInfo;
 
+
+// FIXME: 简化操作，不划分目录，不按项目分类，不按用户名分类
 /**
  * 文件管理
  * 
