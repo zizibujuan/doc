@@ -8,7 +8,10 @@
 <script type="text/javascript" src="/jquery/jquery.js"></script>
 <!-- Bootstrap -->
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/jquery/jquery-2.1.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
 <style type="text/css">
 
 html{
@@ -27,8 +30,33 @@ body{
 	background-color: white
 }
 
+.file-row{
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
 </style>
     
+   <script type="text/javascript">
+    $(document).ready(function(){
+    	var fileListDiv = $("#fileList");
+    	
+    	$.getJSON("files", function(data){
+    		//var data = [{"title": "a", "fileId": "1"},{"title": "b", "fileId": "2"}];
+    		$.each(data, function(index, element){
+    			var a = $("<a></a>").attr("href", "blob/" + element.fileId).html(element.title);
+    			var row = $("<div/>", {
+    				"class": "file-row"
+    			});
+    			a.appendTo(row);
+    			row.appendTo(fileListDiv);
+    		});
+    	});
+    	
+    });
+    
+    
+   </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -41,13 +69,12 @@ body{
 
 <div style="height: inherit;">
 	<div class="container" style="height: inherit;">
-	aa
+		<!-- 按照创建时间倒排序，分页，每页30条 -->
+		<div id="fileList"></div>
 	</div>
 </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/jquery/jquery-2.1.1.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+
   </body>
 </html>

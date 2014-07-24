@@ -31,6 +31,7 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import com.zizibujuan.cm.server.service.ApplicationPropertyService;
 import com.zizibujuan.cm.server.servlets.CMServiceHolder;
 import com.zizibujuan.drip.server.doc.model.NewFileForm;
+import com.zizibujuan.drip.server.doc.service.FileService;
 import com.zizibujuan.drip.server.util.constant.GitConstants;
 import com.zizibujuan.drip.server.util.servlet.BaseServlet;
 import com.zizibujuan.drip.server.util.servlet.RequestUtil;
@@ -52,19 +53,42 @@ public class FileServlet extends BaseServlet {
 	
 	private ApplicationPropertyService applicationPropertyService;
 	
+	private FileService fileService; 
+
 	public FileServlet(){
 		applicationPropertyService = CMServiceHolder.getDefault().getApplicationPropertyService();
+		fileService = ServiceHolder.getDefault().getFileService();
 	}
 
 	/**
-	 * 新建文件
+	 * 新建文件, 如果当前用户没有git仓库，则先创建git仓库
+	 * 
+	 * files
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * files/{userName}/{fileId}
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		traceRequest(req);
 		
-		IPath path = getPath(req); // files/userName/projectName/[filePath]
+		IPath path = getPath(req); // files/userName/fileId
+		
+		if(path.segmentCount() == 0){
+			
+			return;
+		}
+		
+		
 		if(path.segmentCount() >= 2){
 			// 获取仓库名称
 			String repoPath = path.uptoSegment(2).toString();
@@ -211,5 +235,20 @@ public class FileServlet extends BaseServlet {
 		super.doPut(req, resp);
 	}
 
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		traceRequest(req);
+		IPath path = getPath(req);
+		if(path.segmentCount() == 0){
+			
+			
+			return;
+		}
+		super.doGet(req, resp);
+	}
 
+
+	
 }

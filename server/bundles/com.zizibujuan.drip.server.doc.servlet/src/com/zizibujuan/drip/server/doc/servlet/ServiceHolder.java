@@ -3,6 +3,7 @@ package com.zizibujuan.drip.server.doc.servlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.zizibujuan.drip.server.doc.service.FileService;
 import com.zizibujuan.drip.server.doc.service.ProjectService;
 
 
@@ -45,5 +46,24 @@ public class ServiceHolder {
 
 	public ProjectService getProjectService() {
 		return this.projectService;
+	}
+
+	/************** 文档处理服务 ***************/
+	private FileService fileService;
+
+	public void setFileService(FileService fileService) {
+		logger.info("注入fileService");
+		this.fileService = fileService;
+	}
+
+	public void unsetFileService(FileService fileService) {
+		logger.info("注销fileService");
+		if (this.fileService == fileService) {
+			this.fileService = null;
+		}
+	}
+	
+	public FileService getFileService() {
+		return fileService;
 	}
 }

@@ -1,5 +1,7 @@
 package com.zizibujuan.drip.server.doc.model;
 
+import java.util.Date;
+
 /**
  * 文件信息
  * 
@@ -12,11 +14,17 @@ public class FileInfo {
 	
 	private String path;
 	
-	private String name;
+	private String fileName;
+	
+	private String title;
 	
 	private String content;
 	
 	private String size; // 后面带单位
+	
+	private Date createTime;
+	
+	private String createUserId;
 
 	/**
 	 * 获取文件标识
@@ -54,16 +62,16 @@ public class FileInfo {
 	 * 获取文件相对项目根目录的路径，包含文件名
 	 * @return 文件完整路径
 	 */
-	public String getName() {
-		return name;
+	public String getFileName() {
+		return fileName;
 	}
 
 	/**
 	 * 设置文件名
-	 * @param name 文件名
+	 * @param fileName 文件名
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	/**
@@ -108,6 +116,30 @@ public class FileInfo {
 		}else{
 			this.size = size/(1024*1024*1024) +"GB";
 		}
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getCreateUserId() {
+		return createUserId;
+	}
+
+	public void setCreateUserId(String createUserId) {
+		this.createUserId = createUserId;
 	}
 
 	
