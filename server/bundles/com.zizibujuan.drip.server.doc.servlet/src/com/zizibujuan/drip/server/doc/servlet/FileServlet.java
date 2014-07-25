@@ -88,7 +88,7 @@ public class FileServlet extends BaseServlet {
 		
 		if(path.segmentCount() == 0){
 			// 具体逻辑放到service中实现
-			Long userId = ((UserInfo)UserSession.getUser(req)).getUserId();
+			Long userId = ((UserInfo)UserSession.getUser(req)).getId();
 			FileInfo fileInfo = RequestUtil.fromJsonObject(req, FileInfo.class);
 			fileInfo.setCreateUserId(userId);
 			fileService.add(fileInfo);

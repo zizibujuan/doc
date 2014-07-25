@@ -40,7 +40,7 @@ public class FileDaoImpl extends AbstractDao implements FileDao {
 				fileInfo.setFileName(rs.getString(2));
 				fileInfo.setTitle(rs.getString(3));
 				fileInfo.setCreateTime(rs.getTimestamp(4));
-				fileInfo.setCreateUserId(rs.getString(5));
+				fileInfo.setCreateUserId(rs.getLong(5));
 				return fileInfo;
 			}
 			

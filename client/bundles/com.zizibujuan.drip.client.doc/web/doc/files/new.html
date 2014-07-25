@@ -10,7 +10,7 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/jquery/jquery-2.1.1.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
 <script src="/ace/ace.js" charset="utf-8"></script>
 
 <script type="text/javascript">
@@ -48,7 +48,7 @@ $(document).ready(function(){
 		$.post("files", {
 			"title": title, 
 			"commitMessage": commitMessage, 
-			"content", fileContent
+			"content": fileContent
 		}).done(function(data){
 			
 			// 保存成功后， 跳转到登录用户的文档列表页面。 
@@ -81,8 +81,8 @@ body{
 }
 
 #txtFile{
-	position: absolute;
-	width: 500px;
+	position: relative;
+	width: 100%;
 	height: 400px;
 }
 
@@ -108,7 +108,7 @@ body{
 			    <label for="txtCommitInfo">修改说明</label>
 			    <textarea class="form-control" rows="3" id="txtCommitInfo"></textarea>
 			  </div>
-			  <button type="button" class="btn btn-primary" id="btnSave">保存</button>
+			  <button type="button" class="btn btn-primary" id="btnSave"><span class="glyphicon glyphicon-floppy-disk"></span> 保存</button>
 			</form>
 		
 		</div>

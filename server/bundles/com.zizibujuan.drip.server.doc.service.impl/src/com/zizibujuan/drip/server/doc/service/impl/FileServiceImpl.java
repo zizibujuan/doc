@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.zizibujuan.cm.server.service.ApplicationPropertyService;
 import com.zizibujuan.drip.server.doc.dao.FileDao;
 import com.zizibujuan.drip.server.doc.model.FileInfo;
 import com.zizibujuan.drip.server.doc.service.FileService;
