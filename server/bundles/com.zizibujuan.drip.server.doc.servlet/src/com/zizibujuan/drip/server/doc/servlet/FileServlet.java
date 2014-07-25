@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,8 +31,10 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 import com.zizibujuan.cm.server.service.ApplicationPropertyService;
 import com.zizibujuan.cm.server.servlets.CMServiceHolder;
+import com.zizibujuan.drip.server.doc.model.FileInfo;
 import com.zizibujuan.drip.server.doc.model.NewFileForm;
 import com.zizibujuan.drip.server.doc.service.FileService;
+import com.zizibujuan.drip.server.util.PageInfo;
 import com.zizibujuan.drip.server.util.constant.GitConstants;
 import com.zizibujuan.drip.server.util.servlet.BaseServlet;
 import com.zizibujuan.drip.server.util.servlet.RequestUtil;
@@ -84,7 +87,11 @@ public class FileServlet extends BaseServlet {
 		IPath path = getPath(req); // files/userName/fileId
 		
 		if(path.segmentCount() == 0){
-			
+			// 具体逻辑放到service中实现
+			Long userId = ((UserInfo)UserSession.getUser(req)).getUserId();
+			FileInfo fileInfo = RequestUtil.fromJsonObject(req, FileInfo.class);
+			fileInfo.setCreateUserId(userId);
+			fileService.add(fileInfo);
 			return;
 		}
 		
@@ -242,8 +249,9 @@ public class FileServlet extends BaseServlet {
 		traceRequest(req);
 		IPath path = getPath(req);
 		if(path.segmentCount() == 0){
-			
-			
+			PageInfo pageInfo = getPageInfo(req);
+			List<FileInfo> result = fileService.get(pageInfo);
+			ResponseUtil.toJSON(req, resp, result);
 			return;
 		}
 		super.doGet(req, resp);

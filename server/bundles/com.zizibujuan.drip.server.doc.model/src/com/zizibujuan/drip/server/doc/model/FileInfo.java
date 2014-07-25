@@ -22,9 +22,11 @@ public class FileInfo {
 	
 	private String size; // 后面带单位
 	
+	private String commitMessage;
+	
 	private Date createTime;
 	
-	private String createUserId;
+	private Long createUserId;
 
 	/**
 	 * 获取文件标识
@@ -126,6 +128,14 @@ public class FileInfo {
 		this.title = title;
 	}
 
+	public String getCommitMessage() {
+		return commitMessage;
+	}
+
+	public void setCommitMessage(String commitMessage) {
+		this.commitMessage = commitMessage;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -134,11 +144,11 @@ public class FileInfo {
 		this.createTime = createTime;
 	}
 
-	public String getCreateUserId() {
+	public Long getCreateUserId() {
 		return createUserId;
 	}
 
-	public void setCreateUserId(String createUserId) {
+	public void setCreateUserId(Long createUserId) {
 		this.createUserId = createUserId;
 	}
 

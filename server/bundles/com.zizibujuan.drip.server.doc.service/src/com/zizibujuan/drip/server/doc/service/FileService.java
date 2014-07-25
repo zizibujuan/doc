@@ -20,4 +20,12 @@ public interface FileService {
 	 * @return 文档列表，按照文档创建时间倒排。
 	 */
 	List<FileInfo> get(PageInfo pageInfo);
+
+	/**
+	 * 创建文档，如果用户没有git仓库，则先为用户创建一个git仓库，仓库名称使用用户标识。
+	 * 
+	 * @param fileInfo 文件信息
+	 * @return 成功标志
+	 */
+	boolean add(FileInfo fileInfo);
 }

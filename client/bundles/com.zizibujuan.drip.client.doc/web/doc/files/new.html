@@ -2,18 +2,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>新建文件 · 孜孜不倦</title>
-<link type="text/css" rel="stylesheet" href="/drip/resources/app.css" />
-<link type="text/css" rel="stylesheet" href="/drip/resources/font-awesome/css/font-awesome.css" />
-<script type="text/javascript" 
-	data-dojo-config="
-		async:true,
-		parseOnLoad:false,
-		isDebug:true" 
-	src="/dojo/dojo.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>新建文件 </title>
+<!-- Bootstrap -->
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/jquery/jquery-2.1.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="/ace/ace.js" charset="utf-8"></script>
+
 <script type="text/javascript">
 
+/*
 	var pathName = window.location.pathname;
 	require([ "doc/files/FileForm", 
 	          "drip/widget/Header",
@@ -28,16 +30,89 @@
 		fileForm.startup();
 		
 	});
+	*/
+	
+$(document).ready(function(){
+	var fileEditor = ace.edit("txtFile");
+	fileEditor.setTheme("ace/theme/textmate");
+	fileEditor.getSession().setMode("ace/mode/markdown");
+	
+	var txtTitle = $("#txtTitle");
+	var txtCommitInfo = $("#txtCommitInfo");
+	
+	$("#btnSave").click(function(e){
+		var title = txtTitle.val();
+		var commitMessage = txtCommitInfo.val();
+		var fileContent = fileEditor.getValue();
+		
+		$.post("files", {
+			"title": title, 
+			"commitMessage": commitMessage, 
+			"content", fileContent
+		}).done(function(data){
+			
+			// 保存成功后， 跳转到登录用户的文档列表页面。 
+			// 如果这个地方是弹出的模式，则保存成功后，关闭弹出的面板。（这个模式待考虑）
+			
+		}).fail(function(){
+			// 保存失败后，依然停留在录入页面，并保留录入的数据。
+		});
+	});
+});
 	
 </script>
+
+<style type="text/css">
+
+html{
+height: 100%
+}
+
+body{
+	padding: 0px;
+	margin: 0px;
+}
+
+.container{
+	width: 980px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white
+}
+
+#txtFile{
+	position: absolute;
+	width: 500px;
+	height: 400px;
+}
+
+</style>
 </head>
-<body class="claro">
-	<div id="wrapper" class="drip_body">
-		<div id="header" style="min-height:43px"></div>
-		<div id="files" class="new-file">
+
+<body style="background-color: black; height: 100%">
+
+<div style="height: inherit;">
+	<div class="container" style="height: inherit;">
+		<div id="fileForm">
+		
+			<form role="form">
+			  <div class="form-group">
+			    <label for="txtTitle">标题（必填）</label>
+			    <input type="text" class="form-control" id="txtTitle">
+			  </div>
+			  <div class="form-group">
+			    <label for="txtFile">内容</label>
+			    <div id="txtFile"></div>
+			  </div>
+			  <div class="form-group">
+			    <label for="txtCommitInfo">修改说明</label>
+			    <textarea class="form-control" rows="3" id="txtCommitInfo"></textarea>
+			  </div>
+			  <button type="button" class="btn btn-primary" id="btnSave">保存</button>
+			</form>
 		
 		</div>
-		
 	</div>
-</body>
+</div>
+  </body>
 </html>
