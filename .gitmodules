@@ -34,3 +34,6 @@
 [submodule "client/bundles/com.zizibujuan.client.highlight/static/highlight"]
 	path = client/bundles/com.zizibujuan.client.highlight/static/highlight
 	url = https://github.com/isagalaev/highlight.js.git
+[submodule "server/bundles/com.zizibujuan.server.jgit"]
+	path = server/bundles/com.zizibujuan.server.jgit
+	url = git@github.com:zizibujuan/server.jgit.git
