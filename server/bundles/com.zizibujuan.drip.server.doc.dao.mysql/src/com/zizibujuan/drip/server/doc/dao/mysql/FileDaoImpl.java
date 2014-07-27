@@ -1,5 +1,6 @@
 package com.zizibujuan.drip.server.doc.dao.mysql;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -9,6 +10,7 @@ import com.zizibujuan.drip.server.doc.model.FileInfo;
 import com.zizibujuan.drip.server.util.PageInfo;
 import com.zizibujuan.drip.server.util.dao.AbstractDao;
 import com.zizibujuan.drip.server.util.dao.DatabaseUtil;
+import com.zizibujuan.drip.server.util.dao.PreparedStatementSetter;
 import com.zizibujuan.drip.server.util.dao.RowMapper;
 
 /**
@@ -45,6 +47,51 @@ public class FileDaoImpl extends AbstractDao implements FileDao {
 			}
 			
 		}, pageInfo);
+	}
+	
+	private static final String SQL_GET_FIRST_MATCH_REPO = "SELECT "
+			+ "DBID "
+			+ "FROM "
+			+ "DRIP_USER_GIT_REPO "
+			+ "WHERE "
+			+ "CREATE_USER_ID=? AND "
+			+ "REPO_NAME=? "
+			+ "LIMIT 1";
+	@Override
+	public boolean contains(Long userId, String gitRepoName) {
+		Long result = DatabaseUtil.queryForLong(getDataSource(), SQL_GET_FIRST_MATCH_REPO, userId, gitRepoName);
+		return result != null;
+	}
+	
+	private static final String SQL_INSERT_REPO = "INSERT INTO "
+			+ "DRIP_USER_GIT_REPO "
+			+ "(REPO_NAME, "
+			+ "CRT_TM, "
+			+ "CRT_USER_ID) "
+			+ "VALUES "
+			+ "(?, now(), ?)";
+	@Override
+	public void addGitRepoInfo(Long userId, String gitRepoName) {
+		DatabaseUtil.insert(getDataSource(), SQL_INSERT_REPO, userId, gitRepoName);
+	}
+	
+	private static final String SQL_INSERT_FILE_INFO = "INSERT INTO "
+			+ "DRIP_DOC_FILE "
+			+ "(DOC_TITLE, "
+			+ "CRT_TM, "
+			+ "CRT_USER_ID) "
+			+ "VALUES "
+			+ "(?, now(), ?)";
+	@Override
+	public Long add(final FileInfo fileInfo) {
+		return DatabaseUtil.insert(getDataSource(), SQL_INSERT_FILE_INFO, new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, fileInfo.getTitle());
+				ps.setLong(2, fileInfo.getCreateUserId());
+			}
+		});
 	}
 
 }

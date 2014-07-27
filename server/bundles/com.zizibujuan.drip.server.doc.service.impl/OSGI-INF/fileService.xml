@@ -10,6 +10,16 @@
 		interface="com.zizibujuan.drip.server.doc.dao.FileDao" 
 		name="fileDao" 
 		policy="dynamic"/>
+			
+	<reference 
+		bind="setUserService" 
+		unbind="unsetUserService" 
+		cardinality="0..1" 
+		interface="com.zizibujuan.useradmin.server.service.UserService" 
+		name="userService" 
+		policy="dynamic"/>			
+			
+			
 				
 	 <service>
 	    <provide interface="com.zizibujuan.drip.server.doc.service.FileService"/>

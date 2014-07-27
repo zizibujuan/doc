@@ -1,13 +1,15 @@
 -- -----------------------------------------------------
--- Table `DRIP_DOC_FILE` 维护所有文档信息
+-- Table `DRIP_USER_GIT_REPO` 维护用户的git仓库列表
+-- 一个用户可以有多个git仓库，但是默认会为用户创建一个名为default的仓库
+-- 仓库路径为rootPath/userName/default
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `DRIP_DOC_FILE`;
+DROP TABLE IF EXISTS `DRIP_USER_GIT_REPO`;
 
 CREATE TABLE IF NOT EXISTS `DRIP_DOC_FILE` (
   `DBID` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `DOC_TITLE` VARCHAR(32) NULL COMMENT '文档标题',
+  `REPO_NAME` VARCHAR(32) NULL COMMENT 'git仓库名称',
   `CRT_TM` DATETIME NULL COMMENT '创建时间',
   `CRT_USER_ID` BIGINT NOT NULL COMMENT '创建人标识',
   PRIMARY KEY (`DBID`))
 ENGINE = InnoDB
-COMMENT = '文档信息';
+COMMENT = '用户的git仓库列表';

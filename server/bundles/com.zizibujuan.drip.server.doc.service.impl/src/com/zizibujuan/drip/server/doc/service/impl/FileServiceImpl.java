@@ -11,6 +11,9 @@ import com.zizibujuan.drip.server.doc.model.FileInfo;
 import com.zizibujuan.drip.server.doc.service.FileService;
 import com.zizibujuan.drip.server.util.PageInfo;
 import com.zizibujuan.drip.server.util.constant.GitConstants;
+import com.zizibujuan.server.git.GitUtils;
+import com.zizibujuan.useradmin.server.model.UserInfo;
+import com.zizibujuan.useradmin.server.service.UserService;
 
 /**
  * 文件管理服务实现类
@@ -21,8 +24,10 @@ import com.zizibujuan.drip.server.util.constant.GitConstants;
 public class FileServiceImpl implements FileService {
 
 	private Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
+	private static final String DEFAULT_DOC_GIT_NAME = "default";
 	
 	private FileDao fileDao;
+	private UserService userService;
 	private ApplicationPropertyService applicationPropertyService;
 	
 	@Override
@@ -32,8 +37,53 @@ public class FileServiceImpl implements FileService {
 	
 	@Override
 	public boolean add(FileInfo fileInfo) {
-		String docRootPath = applicationPropertyService.getForString(GitConstants.KEY_GIT_ROOT);
+		Long userId = fileInfo.getCreateUserId();
+		
+		UserInfo userInfo = userService.getById(userId);
+		if(!existDefaultGitRepo(userId)){
+			createDefaultGitRepo(userInfo);
+			registerDefaultGitRepo(userId);
+		}
+		
+		// 文件内容
+		Long fileId = fileDao.add(fileInfo);
+		if(fileId != null){
+			// 使用fileId作为文件名，后缀名为.md
+			String fileName = fileId + ".md";
+			fileInfo.setFileName(fileName);
+			addFileToDefaultGitRepo(userInfo, fileInfo);
+			return true;
+		}
+		
 		return false;
+	}
+	
+	private boolean existDefaultGitRepo(Long userId){
+		return fileDao.contains(userId, DEFAULT_DOC_GIT_NAME);
+	}
+	
+	private void registerDefaultGitRepo(Long userId){
+		fileDao.addGitRepoInfo(userId, DEFAULT_DOC_GIT_NAME);
+	}
+	
+	//仓库路径  root/userName/default
+	private void createDefaultGitRepo(UserInfo userInfo){
+		String docRootPath = applicationPropertyService.getForString(GitConstants.KEY_DOC_REPO_ROOT);
+		String gitRepoPath = docRootPath + userInfo.getLoginName() + "/" + DEFAULT_DOC_GIT_NAME;
+		
+		GitUtils.init(gitRepoPath, userInfo.getLoginName(), userInfo.getEmail());
+	}
+	
+	private void addFileToDefaultGitRepo(UserInfo userInfo, FileInfo fileInfo){
+		String docRootPath = applicationPropertyService.getForString(GitConstants.KEY_DOC_REPO_ROOT);
+		String relativePath = userInfo.getLoginName() + "/" + DEFAULT_DOC_GIT_NAME;
+		GitUtils.commit(docRootPath, 
+						relativePath, 
+						fileInfo.getFileName(), 
+						fileInfo.getContent(), 
+						userInfo.getLoginName(), 
+						userInfo.getEmail(), 
+						fileInfo.getCommitMessage());
 	}
 	
 	public void setFileDao(FileDao fileDao) {
@@ -48,4 +98,15 @@ public class FileServiceImpl implements FileService {
 		}
 	}
 
+	public void setUserService(UserService userService) {
+		logger.info("注入userService");
+		this.userService = userService;
+	}
+
+	public void unsetUserService(UserService userService) {
+		if (this.userService == userService) {
+			logger.info("注销userService");
+			this.userService = null;
+		}
+	}
 }
