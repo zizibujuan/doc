@@ -10,7 +10,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/jquery/jquery-2.1.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
 <style type="text/css">
 
 html{
@@ -38,6 +38,24 @@ body{
     
    <script type="text/javascript">
     $(document).ready(function(){
+    	
+    	var btnNewFile = $("#btnNewFile");
+    	btnNewFile.click(function(e){
+    		if(isAnonymousUser()){
+    			showLoginDialog();// 登录成功后，跳转到之前访问的页面
+    			return;
+    		}
+    		toNewFilePage();
+    	});
+    	
+    	function isAnonymousUser(){
+    		return true;
+    	}
+    	
+    	function showLoginDialog(){
+    		$("#loginDialog").modal("show");
+    	}
+    	
     	var fileListDiv = $("#fileList");
     	
     	$.getJSON("files", function(data){
@@ -65,9 +83,97 @@ body{
     <![endif]-->
   </head>
     <body style="background-color: black; height: 100%">
+    
+    
+  <!-- 登录/注册弹出框 -->
+  <div class="modal fade" id="loginDialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none; padding-bottom: 0px">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        
+        <!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+		  <li class="active"><a href="#login" role="tab" data-toggle="tab">登录</a></li>
+		  <li><a href="#register" role="tab" data-toggle="tab">注册</a></li>
+		</ul>
+		
+      </div>
+      <div class="modal-body">
+		<!-- Tab panes -->
+		<div class="tab-content">
+		  <div class="tab-pane active" id="login">
+		  	
+		  		<form role="form">
+				  <div class="form-group">
+				    <div class="input-group">
+				      <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+				      <input class="form-control" type="text" placeholder="邮箱或用户名">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				  	<div class="input-group">
+				    	<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+				    	<input type="password" class="form-control" id="exampleInputPassword2" placeholder="密码">
+				    </div>
+				  </div>
+				  <!-- 
+				  <div class="checkbox">
+				    <label>
+				      <input type="checkbox"> 记住登录信息
+				    </label>
+				  </div>
+				   -->
+				  <button type="button" class="btn btn-default">登录</button>
+				</form>
+		  
+		  </div>
+		  <div class="tab-pane" id="register">
+		  		
+		  		<form role="form">
+				  <div class="form-group">
+				    <div class="input-group">
+				      <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
+				      <input class="form-control" type="email" placeholder="邮箱">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				  	<div class="input-group">
+				    	<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+				    	<input type="password" class="form-control" id="exampleInputPassword2" placeholder="密码">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				  	<div class="input-group">
+				    	<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+				    	<input type="text" class="form-control" id="exampleInputPassword2" placeholder="用户名">
+				    </div>
+				  </div>
+				  <button type="button" class="btn btn-default">注册</button>
+				</form>
+		  
+		  </div>
+		</div>
+        
+        
+        
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 
 <div style="height: inherit;">
 	<div class="container" style="height: inherit;">
+		<!-- 工具条 -->
+		<div style="margin-top: 20px">
+			<div style="float: right; padding-right:20px">
+				<button id="btnNewFile" type="button" title="创建文档" class="btn btn-default btn-lg">
+				  + <span class="glyphicon glyphicon-file"></span>
+				</button>
+			</div>
+		</div>
 		<!-- 按照创建时间倒排序，分页，每页30条 -->
 		<div id="fileList"></div>
 	</div>
