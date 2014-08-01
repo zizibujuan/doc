@@ -48,8 +48,12 @@ body{
     		toNewFilePage();
     	});
     	
+    	//var loginUser = cookie("zzbj_user");
+    	
+    	// 从服务器端判断用户是否已经登录
+    	
     	function isAnonymousUser(){
-    		return true;
+    		return loginUser == null;
     	}
     	
     	function showLoginDialog(){
@@ -89,80 +93,22 @@ body{
   <div class="modal fade" id="loginDialog">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header" style="border-bottom: none; padding-bottom: 0px">
+      <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        
-        <!-- Nav tabs -->
-		<ul class="nav nav-tabs" role="tablist">
-		  <li class="active"><a href="#login" role="tab" data-toggle="tab">登录</a></li>
-		  <li><a href="#register" role="tab" data-toggle="tab">注册</a></li>
-		</ul>
-		
+        <h4 class="modal-title">登录</h4>
       </div>
       <div class="modal-body">
-		<!-- Tab panes -->
-		<div class="tab-content">
-		  <div class="tab-pane active" id="login">
-		  	
-		  		<form role="form">
-				  <div class="form-group">
-				    <div class="input-group">
-				      <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-				      <input class="form-control" type="text" placeholder="邮箱或用户名">
-				    </div>
-				  </div>
-				  <div class="form-group">
-				  	<div class="input-group">
-				    	<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-				    	<input type="password" class="form-control" id="exampleInputPassword2" placeholder="密码">
-				    </div>
-				  </div>
-				  <!-- 
-				  <div class="checkbox">
-				    <label>
-				      <input type="checkbox"> 记住登录信息
-				    </label>
-				  </div>
-				   -->
-				  <button type="button" class="btn btn-default">登录</button>
-				</form>
-		  
-		  </div>
-		  <div class="tab-pane" id="register">
-		  		
-		  		<form role="form">
-				  <div class="form-group">
-				    <div class="input-group">
-				      <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
-				      <input class="form-control" type="email" placeholder="邮箱">
-				    </div>
-				  </div>
-				  <div class="form-group">
-				  	<div class="input-group">
-				    	<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-				    	<input type="password" class="form-control" id="exampleInputPassword2" placeholder="密码">
-				    </div>
-				  </div>
-				  <div class="form-group">
-				  	<div class="input-group">
-				    	<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-				    	<input type="text" class="form-control" id="exampleInputPassword2" placeholder="用户名">
-				    </div>
-				  </div>
-				  <button type="button" class="btn btn-default">注册</button>
-				</form>
-		  
-		  </div>
-		</div>
+      <div>
+       <a href="/login/qq">使用QQ账号登录 <span class="glyphicon glyphicon-chevron-right"></span></a>
+      </div>
         
-        
-        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-
 
 <div style="height: inherit;">
 	<div class="container" style="height: inherit;">
