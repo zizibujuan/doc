@@ -30,3 +30,4 @@ Import-Package: com.zizibujuan.cm.server.service,
 Service-Component: OSGI-INF/service.xml
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.8.0"
+Export-Package: com.zizibujuan.drip.server.doc.servlet

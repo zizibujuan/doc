@@ -129,7 +129,7 @@ public class ProjectServlet extends BaseServlet {
 			// 父目录
 			// 根据登录用户与项目名获取
 			// projects/userName/projectName/directory/file/...
-			String rootPath = applicationPropertyService.getForString(GitConstants.KEY_GIT_ROOT);
+			String rootPath = applicationPropertyService.getForString(GitConstants.KEY_DOC_REPO_ROOT);
 			if(rootPath.endsWith("/")){
 				rootPath = rootPath.substring(0, rootPath.length()-1);
 			}

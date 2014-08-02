@@ -45,7 +45,7 @@ public class BlobServlet extends BaseServlet {
 		IPath path = getPath(req);
 		if(path.segmentCount() > 2){
 			// blob/userName/projectName/[filePath]
-			String rootPath = applicationPropertyService.getForString(GitConstants.KEY_GIT_ROOT);
+			String rootPath = applicationPropertyService.getForString(GitConstants.KEY_DOC_REPO_ROOT);
 			// 文件信息
 			URI fileLocation;
 			try {
@@ -61,7 +61,7 @@ public class BlobServlet extends BaseServlet {
 				IFileInfo fileInfo = fileStore.fetchInfo();
 				FileInfo fileDetail = new FileInfo();
 				fileDetail.setContent(writer.toString());
-				fileDetail.setName(fileInfo.getName());
+				fileDetail.setFileName(fileInfo.getName());
 				fileDetail.setLongSize(fileInfo.getLength());
 				
 				ResponseUtil.toJSON(req, resp, fileDetail);

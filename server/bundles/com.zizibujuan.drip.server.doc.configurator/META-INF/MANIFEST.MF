@@ -5,3 +5,4 @@ Bundle-SymbolicName: com.zizibujuan.drip.server.doc.configurator;singleton:=true
 Bundle-Version: 0.0.1.qualifier
 Bundle-Vendor: zizibujuan.com
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: com.zizibujuan.drip.server.doc.servlet

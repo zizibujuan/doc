@@ -54,7 +54,7 @@ public class ProjectServiceImpl implements ProjectService {
 		// TODO: 抽象用户接口
 		UserInfo userInfo = userDao.getByLoginName(projectInfo.getCreateUserName());
 		// 首先确定放git仓库的根目录。
-		String root = applicationPropertyDao.getForString(GitConstants.KEY_GIT_ROOT);
+		String root = applicationPropertyDao.getForString(GitConstants.KEY_DOC_REPO_ROOT);
 		InitCommand command = new InitCommand();
 		// 还是使用项目名称作为仓库的名称，并将仓库放在登录名（固定不变）下面
 		File directory = new File(root + userInfo.getLoginName() + "/" + projectInfo.getName()); 

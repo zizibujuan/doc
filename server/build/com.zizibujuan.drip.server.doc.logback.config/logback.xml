@@ -1,0 +1,46 @@
+<configuration>
+  <!-- See documentation at http://logback.qos.ch/manual/joran.html -->
+  
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+    </layout>
+  </appender>
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>doc.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- daily rollover -->
+      <!-- FIXME: dd表示的时间比真实日期少一天 -->
+      <fileNamePattern>doc.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+      <!-- keep 30 days' worth of history -->
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+
+    <encoder>
+      <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- Prints information on locating and reading the server configuration file -->
+  <logger name="com.zizibujuan.dbaccess.mysql" level="DEBUG"/>
+  <logger name="com.zizibujuan.drip.server.util" level="DEBUG"/>
+  
+  <logger name="com.zizibujuan.drip.server.doc.servlet" level="DEBUG"/>
+  <logger name="com.zizibujuan.drip.server.doc.dao.mysql" level="DEBUG"/>
+  <logger name="com.zizibujuan.drip.server.doc.service.impl" level="DEBUG"/>
+  <logger name="com.zizibujuan.drip.server.doc.configurator" level="DEBUG"/>
+  
+  <logger name="com.zizibujuan.cm.server.servlet" level="DEBUG"/>
+  <logger name="com.zizibujuan.cm.server.dao.mysql" level="DEBUG"/>
+  <logger name="com.zizibujuan.cm.server.service.impl" level="DEBUG"/>
+  
+  <logger name="com.zizibujuan.useradmin.server.servlet" level="DEBUG"/>
+  <logger name="com.zizibujuan.useradmin.server.dao.mysql" level="DEBUG"/>
+  <logger name="com.zizibujuan.useradmin.server.service.impl" level="DEBUG"/>
+
+  <root level="WARN">
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="FILE" />
+  </root>
+</configuration>
