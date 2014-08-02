@@ -48,9 +48,7 @@ public class FileServiceImpl implements FileService {
 		// 文件内容
 		Long fileId = fileDao.add(fileInfo);
 		if(fileId != null){
-			// 使用fileId作为文件名，后缀名为.md
-			String fileName = fileId + ".md";
-			fileInfo.setFileName(fileName);
+			fileInfo.setId(fileId);
 			addFileToDefaultGitRepo(userInfo, fileInfo);
 			return true;
 		}

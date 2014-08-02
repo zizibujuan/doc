@@ -24,16 +24,16 @@ body{
 
 .container{
 	width: 980px;
-	margin-left: auto;
-	margin-right: auto;
 	background-color: white
 }
 
 .file-row{
-	padding-top: 20px;
 	padding-bottom: 20px;
 }
 
+#fileList{
+	padding-left: 30px
+}
 </style>
     
    <script type="text/javascript">
@@ -62,10 +62,9 @@ body{
     	
     	var fileListDiv = $("#fileList");
     	
-    	$.getJSON("files", function(data){
-    		//var data = [{"title": "a", "fileId": "1"},{"title": "b", "fileId": "2"}];
+    	$.getJSON("/files", function(data){
     		$.each(data, function(index, element){
-    			var a = $("<a></a>").attr("href", "blob/" + element.fileId).html(element.title);
+    			var a = $("<a></a>").attr("href", "/blob/" + element.fileName).html(element.title);
     			var row = $("<div/>", {
     				"class": "file-row"
     			});

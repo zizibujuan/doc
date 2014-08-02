@@ -14,8 +14,6 @@ public class FileInfo {
 	
 	private String path;
 	
-	private String fileName;
-	
 	private String title;
 	
 	private String content;
@@ -61,19 +59,11 @@ public class FileInfo {
 	}
 
 	/**
-	 * 获取文件相对项目根目录的路径，包含文件名
+	 * 获取文件相对项目根目录的路径，包含文件名,使用id作为文件名，后缀名为.md
 	 * @return 文件完整路径
 	 */
 	public String getFileName() {
-		return fileName;
-	}
-
-	/**
-	 * 设置文件名
-	 * @param fileName 文件名
-	 */
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+		return id + ".md";
 	}
 
 	/**

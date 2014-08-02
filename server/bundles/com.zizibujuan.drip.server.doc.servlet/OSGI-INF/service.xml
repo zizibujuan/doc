@@ -18,7 +18,15 @@
 		bind="setApplicationPropertyService" 
 		unbind="unsetApplicationPropertyService" 
 		cardinality="0..1" 
-		interface="com.zizibujuan.drip.server.service.ApplicationPropertyService" 
+		interface="com.zizibujuan.cm.server.service.ApplicationPropertyService" 
 		name="applicationPropertyService" 
-		policy="dynamic" />	
+		policy="dynamic" />
+		
+	<reference 
+		bind="setFileService"
+		unbind="unsetFileService" 
+		cardinality="0..1" 
+		interface="com.zizibujuan.drip.server.doc.service.FileService" 
+		name="fileService" 
+		policy="dynamic" />
 </scr:component>

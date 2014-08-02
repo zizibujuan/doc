@@ -23,7 +23,6 @@ public class FileDaoImpl extends AbstractDao implements FileDao {
 
 	private static final String SQL_LIST_FILE = "SELECT "
 			+ "DBID, "
-			+ "FILE_ID, "
 			+ "DOC_TITLE, "
 			+ "CRT_TM, "
 			+ "CRT_USER_ID "
@@ -39,10 +38,9 @@ public class FileDaoImpl extends AbstractDao implements FileDao {
 					throws SQLException {
 				FileInfo fileInfo = new FileInfo();
 				fileInfo.setId(rs.getLong(1));
-				fileInfo.setFileName(rs.getString(2));
-				fileInfo.setTitle(rs.getString(3));
-				fileInfo.setCreateTime(rs.getTimestamp(4));
-				fileInfo.setCreateUserId(rs.getLong(5));
+				fileInfo.setTitle(rs.getString(2));
+				fileInfo.setCreateTime(rs.getTimestamp(3));
+				fileInfo.setCreateUserId(rs.getLong(4));
 				return fileInfo;
 			}
 			
