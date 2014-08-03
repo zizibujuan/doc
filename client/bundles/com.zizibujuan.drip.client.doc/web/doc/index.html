@@ -32,8 +32,10 @@ body{
 }
 
 #fileList{
-	padding-left: 30px
+
 }
+
+
 </style>
     
    <script type="text/javascript">
@@ -60,16 +62,14 @@ body{
     		$("#loginDialog").modal("show");
     	}
     	
-    	var fileListDiv = $("#fileList");
+    	var fileListUl = $("#fileList");
     	
     	$.getJSON("/files", function(data){
     		$.each(data, function(index, element){
+    			var li = $("<li/>", {"class": "list-group-item"});
     			var a = $("<a></a>").attr("href", "/blob/" + element.fileName).html(element.title);
-    			var row = $("<div/>", {
-    				"class": "file-row"
-    			});
-    			a.appendTo(row);
-    			row.appendTo(fileListDiv);
+    			a.appendTo(li);
+    			li.appendTo(fileListUl);
     		});
     	});
     	
@@ -112,15 +112,28 @@ body{
 <div style="height: inherit;">
 	<div class="container" style="height: inherit;">
 		<!-- 工具条 -->
-		<div style="margin-top: 20px">
-			<div style="float: right; padding-right:20px">
+		<div style="margin-top: 10px; margin-bottom: 10px" class="clearfix">
+			<div style="float: right; padding-right:20px;" >
 				<button id="btnNewFile" type="button" title="创建文档" class="btn btn-default btn-lg">
 				  + <span class="glyphicon glyphicon-file"></span>
 				</button>
 			</div>
 		</div>
 		<!-- 按照创建时间倒排序，分页，每页30条 -->
-		<div id="fileList"></div>
+		<div >
+			<ul class="list-group" id="fileList">
+			  
+			</ul>
+			<ul class="pagination">
+			  <li><a href="#">◀</a></li>
+			  <li class="active"><a href="#">1</a></li>
+			  <li><a href="#">2</a></li>
+			  <li><a href="#">3</a></li>
+			  <li><a href="#">4</a></li>
+			  <li><a href="#">5</a></li>
+			  <li><a href="#">▶</a></li>
+			</ul>
+		</div>
 	</div>
 </div>
 
