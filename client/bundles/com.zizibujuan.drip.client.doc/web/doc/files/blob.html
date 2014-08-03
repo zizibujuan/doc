@@ -1,51 +1,190 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title></title>
-<link type="text/css" rel="stylesheet" href="/drip/resources/app.css" />
-<link type="text/css" rel="stylesheet" href="/drip/resources/font-awesome/css/font-awesome.css" />
-<link type="text/css" rel="stylesheet" href="/doc/resources/typo.css">
-<link type="text/css" rel="stylesheet" href="/highlight/styles/rainbow.css">
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>文档首页</title>
+	<!-- Bootstrap -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/highlight/styles/rainbow.css">
+    <!-- 
+    <link type="text/css" rel="stylesheet" href="/doc/resources/typo.css">
+     -->
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/jquery/jquery-2.1.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/marked/marked.js"></script>
+	<!-- 
+	<script type="text/javascript" src="/highlight/highlight.js"></script>
+	 -->
 <style type="text/css">
-#file{
-min-width: 480px;
-padding: 5% 8%;
+
+html{
+height: 100%
 }
+
+body{
+	padding: 0px;
+	margin: 0px;
+}
+
+.container{
+	width: 980px;
+	background-color: white
+}
+
+.file-row{
+	padding-bottom: 20px;
+}
+
+#fileList{
+
+}
+
+.doc-title-link{
+	display: inline-block;
+	margin-bottom: 2px;
+	padding-right: 3px;
+	font-size: 15px;
+	font-weight: bold;
+	color: #333;
+	line-height: 1.2;
+	word-break: break-word;
+}
+
+.doc-meta {
+	margin-top: 1px;
+	font-weight: normal;
+	color: #999;
+	
+	position: relative;
+display: table-cell;
+
+font-size: 12px;
+vertical-align: top;
+}
+
+
 </style>
+    
+   <script type="text/javascript">
+    $(document).ready(function(){
+    	
+    	
+    	
+    	var btnNewFile = $("#btnNewFile");
+    	btnNewFile.click(function(e){
+    		if(isAnonymousUser()){
+    			showLoginDialog();// 登录成功后，跳转到之前访问的页面
+    			return;
+    		}
+    		toNewFilePage();
+    	});
+    	
+    	//var loginUser = cookie("zzbj_user");
+    	
+    	// 从服务器端判断用户是否已经登录
+    	var loginUser = null;
+    	function isAnonymousUser(){
+    		return loginUser == null;
+    	}
+    	
+    	function showLoginDialog(){
+    		$("#loginDialog").modal("show");
+    	}
+    	
+    	var fileContent = "#aaa \n"+
+    	"`aa`";
+    	var blobDiv = $("#blob");
+    	marked.setOptions({
+			gfm: true,
+			highlight: function (code, lang) {
+			    try{
+			    	if(lang == "html"){lang = "xml";}
+					return code;
+			    	//return hljs.highlight(lang, code).value;
+			    }catch(e){
+			    	console.error("高亮显示解析失败");
+			    	return code;
+			    }
 
-<script type="text/javascript" src="/highlight/highlight.pack.js"></script>
-<script type="text/javascript" src="/marked/marked.js"></script>
+			},
+			langPrefix: 'lang-'
+		});
+		try{
+			blobDiv.html(marked(fileContent));
+		}catch(e){
+			// 如果解析失败，则显示原文
+			// 逻辑还是不够完善，尽量不允许解析错误，先要校验文件的有效性
+			blobDiv.html(fileContent);
+			console.error("marked解析失败");
+		}
+    	
+    });
+    
+    
+   </script>
 
-<script type="text/javascript" 
-	data-dojo-config="
-		async:true,
-		parseOnLoad:false,
-		isDebug:true" 
-	src="/dojo/dojo.js"></script>
-<script type="text/javascript">
-	var pathName = window.location.pathname;
-	require([ "doc/files/Blob",
-	          "drip/widget/Header",
-	          "dojo/domReady!"], function(
-	        		  Blob,
-	        		  Header){
-		var header = new Header({}, "header");
-		var blob = new Blob({
-			"class": "typo",
-			pathName: ((pathName.lastIndexOf(0) != "/") ? (pathName+"/") : pathName)// TODO:提取一个方法，放在获取pathName的地方
-		}, "file");
-	});
-</script>
-</head>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+    <body style="background-color: black; height: 100%">
+    
+    
+  <!-- 登录/注册弹出框 -->
+  <div class="modal fade" id="loginDialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">登录</h4>
+      </div>
+      <div class="modal-body">
+      <div>
+       <a href="/login/qq">使用QQ账号登录 <span class="glyphicon glyphicon-chevron-right"></span></a>
+      </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-<body class="claro">
-	<div id="wrapper" class="drip_body">
-		<div id="header" style="min-height:43px"></div>
-		<div id="file" >
+<div style="height: inherit;">
+	<div class="container" style="height: inherit;">
+		<!-- 工具条 -->
+		<div style="margin-top: 10px; margin-bottom: 10px" class="clearfix">
+			<div style="float: right; padding-right:20px;" >
+				
+				<button id="btnEditFile" type="button" title="修改" class="btn btn-default btn-lg">
+				  	<span class="glyphicon glyphicon-pencil"></span> 修改
+				</button>
+				
+				<button id="btnNewFile" type="button" title="创建文档" class="btn btn-default btn-lg">
+				  + <span class="glyphicon glyphicon-file"></span>
+				</button>
+			</div>
+		</div>
+		<div>
+		
+			<div id="blob">
 			
+			</div>
+		
 		</div>
 	</div>
-</body>
+</div>
+
+
+
+  </body>
 </html>
