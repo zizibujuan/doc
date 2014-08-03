@@ -22,13 +22,17 @@ import com.zizibujuan.drip.server.util.dao.RowMapper;
 public class FileDaoImpl extends AbstractDao implements FileDao {
 
 	private static final String SQL_LIST_FILE = "SELECT "
-			+ "DBID, "
-			+ "DOC_TITLE, "
-			+ "CRT_TM, "
-			+ "CRT_USER_ID "
+			+ "df.DBID, "
+			+ "df.DOC_TITLE, "
+			+ "df.CRT_TM, "
+			+ "df.CRT_USER_ID, "
+			+ "ui.LOGIN_NAME "
 			+ "FROM "
-			+ "DRIP_DOC_FILE "
-			+ "ORDER BY DBID DESC";
+			+ "DRIP_DOC_FILE df, "
+			+ "DRIP_USER_INFO ui "
+			+ "WHERE "
+			+ "df.CRT_USER_ID=ui.DBID "
+			+ "ORDER BY df.DBID DESC";
 	@Override
 	public List<FileInfo> get(PageInfo pageInfo) {
 		return DatabaseUtil.query(getDataSource(), SQL_LIST_FILE, new RowMapper<FileInfo>() {
@@ -41,6 +45,7 @@ public class FileDaoImpl extends AbstractDao implements FileDao {
 				fileInfo.setTitle(rs.getString(2));
 				fileInfo.setCreateTime(rs.getTimestamp(3));
 				fileInfo.setCreateUserId(rs.getLong(4));
+				fileInfo.setCreateUserName(rs.getString(5));
 				return fileInfo;
 			}
 			

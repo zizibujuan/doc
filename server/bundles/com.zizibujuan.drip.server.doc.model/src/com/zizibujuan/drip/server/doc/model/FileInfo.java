@@ -25,6 +25,8 @@ public class FileInfo {
 	private Date createTime;
 	
 	private Long createUserId;
+	
+	private String createUserName;
 
 	/**
 	 * 获取文件标识
@@ -140,6 +142,14 @@ public class FileInfo {
 
 	public void setCreateUserId(Long createUserId) {
 		this.createUserId = createUserId;
+	}
+
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
 	}
 
 	

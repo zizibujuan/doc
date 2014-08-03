@@ -35,6 +35,29 @@ body{
 
 }
 
+.doc-title-link{
+	display: inline-block;
+	margin-bottom: 2px;
+	padding-right: 3px;
+	font-size: 15px;
+	font-weight: bold;
+	color: #333;
+	line-height: 1.2;
+	word-break: break-word;
+}
+
+.doc-meta {
+	margin-top: 1px;
+	font-weight: normal;
+	color: #999;
+	
+	position: relative;
+display: table-cell;
+
+font-size: 12px;
+vertical-align: top;
+}
+
 
 </style>
     
@@ -53,7 +76,7 @@ body{
     	//var loginUser = cookie("zzbj_user");
     	
     	// 从服务器端判断用户是否已经登录
-    	
+    	var loginUser = null;
     	function isAnonymousUser(){
     		return loginUser == null;
     	}
@@ -67,8 +90,30 @@ body{
     	$.getJSON("/files", function(data){
     		$.each(data, function(index, element){
     			var li = $("<li/>", {"class": "list-group-item"});
-    			var a = $("<a></a>").attr("href", "/blob/" + element.fileName).html(element.title);
-    			a.appendTo(li);
+    			var cell = $("<div/>", {"class": ""});
+    			cell.appendTo(li);
+    			
+    			var a = $("<a></a>",{"class":"doc-title-link"}).attr("href", "/blob/" + element.fileName).html(element.title);
+    			a.appendTo(cell);
+    			var metaDiv = $("<div/>", {"class": "doc-meta"});
+    			metaDiv.appendTo(cell);
+    			
+    			var aCreateUser = $("<a/>");
+    			aCreateUser.html(element.createUserName + " ");
+    			aCreateUser.attr("href", "/users/"+element.createUserId);
+    			aCreateUser.css("color", "#777");
+    			
+    			var spanAction = $("<span/>").html("发布于");
+    			
+    			var timCreate = $("<time/>");
+    			timCreate.attr("datetime", element.createTime)
+    				.attr("title", element.createTime)
+    				.html(element.createTime);
+    			
+    			aCreateUser.appendTo(metaDiv);
+    			spanAction.appendTo(metaDiv);
+    			timCreate.appendTo(metaDiv);
+    			
     			li.appendTo(fileListUl);
     		});
     	});
@@ -121,9 +166,16 @@ body{
 		</div>
 		<!-- 按照创建时间倒排序，分页，每页30条 -->
 		<div >
-			<ul class="list-group" id="fileList">
-			  
-			</ul>
+		
+		<div class="panel panel-default">
+		  <div class="panel-heading">最新文档</div>
+		    	<ul class="panel-body list-group" style="padding: 0px" id="fileList">
+					  
+				</ul>
+		</div>
+
+			
+			<!-- 
 			<ul class="pagination">
 			  <li><a href="#">◀</a></li>
 			  <li class="active"><a href="#">1</a></li>
@@ -133,6 +185,7 @@ body{
 			  <li><a href="#">5</a></li>
 			  <li><a href="#">▶</a></li>
 			</ul>
+			 -->
 		</div>
 	</div>
 </div>
