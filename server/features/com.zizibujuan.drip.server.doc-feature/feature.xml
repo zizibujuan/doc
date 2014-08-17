@@ -59,4 +59,11 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="com.zizibujuan.drip.server.doc.configurator"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
