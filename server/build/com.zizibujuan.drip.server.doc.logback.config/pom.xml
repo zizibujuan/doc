@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<version>0.0.1-SNAPSHOT</version>
-	<artifactId>com.zizibujuan.drip.server.doc.service</artifactId>
+	<artifactId>com.zizibujuan.drip.server.doc.logback.config</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<name>com.zizibujuan.drip.server.doc.service</name>
+	<name>com.zizibujuan.drip.server.doc.logback.config</name>
 
 	<parent>
 		<groupId>com.zizibujuan.drip</groupId>
@@ -14,4 +14,6 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../../../pom.xml</relativePath>
 	</parent>
+
+	
 </project>

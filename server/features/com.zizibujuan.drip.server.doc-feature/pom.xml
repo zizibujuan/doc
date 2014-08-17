@@ -10,7 +10,7 @@
 
 	<parent>
 		<groupId>com.zizibujuan.drip</groupId>
-		<artifactId>parent</artifactId>
+		<artifactId>com.zizibujuan.drip.parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../../../pom.xml</relativePath>
 	</parent>
