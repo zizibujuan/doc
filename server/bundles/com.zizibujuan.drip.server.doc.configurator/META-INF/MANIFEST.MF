@@ -3,6 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: drip.server.doc.configurator
 Bundle-SymbolicName: com.zizibujuan.drip.server.doc.configurator;singleton:=true
 Bundle-Version: 0.0.1.qualifier
-Bundle-Vendor: zizibujuan.com
+Bundle-Activator: com.zizibujuan.drip.server.doc.configurator.Activator
+Bundle-Vendor: ZIZIBUJUAN
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Import-Package: com.zizibujuan.drip.server.doc.servlet
+Import-Package: org.eclipse.equinox.app;version="1.1.0",
+ org.osgi.framework;version="1.3.0"
