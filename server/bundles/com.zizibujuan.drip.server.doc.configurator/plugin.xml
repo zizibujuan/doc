@@ -43,5 +43,15 @@
       
     </extension>
     
-      
+         <extension
+         point="org.eclipse.equinox.http.registry.filters">
+      <filter
+            alias="/"
+            class="com.zizibujuan.drip.server.doc.configurator.servlet.WelcomeFileFilter">
+      </filter>
+      <filter
+            alias="/"
+            class="org.eclipse.jetty.servlets.GzipFilter">
+      </filter>
+      </extension>
 </plugin>
