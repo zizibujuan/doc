@@ -6,7 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<artifactId>com.zizibujuan.drip.server.doc.feature</artifactId>
 	<packaging>eclipse-feature</packaging>
-	<name></name>
+	<name>com.zizibujuan.drip.server.doc.feature</name>
 
 	<parent>
 		<groupId>com.zizibujuan.drip</groupId>
