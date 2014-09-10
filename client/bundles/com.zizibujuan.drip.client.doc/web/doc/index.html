@@ -120,6 +120,10 @@ vertical-align: top;
     		});
     	});
     	
+    	
+    	// TODO: 如果用户已登录，则显示用户登录信息
+    	// TODO: 如果登录成功之后，需要补上邮箱信息（要验证）
+    	// 第一版在后台激活
     });
     
     
@@ -160,22 +164,27 @@ vertical-align: top;
 	<div class="container" style="height: inherit;">
 		<!-- 工具条 -->
 		<div style="margin-top: 10px; margin-bottom: 10px" class="clearfix">
-			<div style="float: right; padding-right:20px;" >
+			<div style="float: right; padding-right:20px;">
+				<a id="linkUser" href="">
+					<img id="imgUser" alt="" src="" />
+					<span id="spanUser">aa</span>
+				</a>
+				
 				<button id="btnNewFile" type="button" title="创建文档" class="btn btn-default btn-lg">
 				  + <span class="glyphicon glyphicon-file"></span>
 				</button>
 			</div>
 		</div>
 		<!-- 按照创建时间倒排序，分页，每页30条 -->
-		<div >
+		<div>
 		
-		<div class="panel panel-default">
-  			<div class="panel-heading">最新文档</div>
-
-  			<ul class="list-group" id="fileList">
-			  
-			</ul>
-</div>
+			<div class="panel panel-default">
+	  			<div class="panel-heading">最新文档</div>
+	
+	  			<ul class="list-group" id="fileList">
+				  
+				</ul>
+			</div>
 
 			
 			<!-- 
