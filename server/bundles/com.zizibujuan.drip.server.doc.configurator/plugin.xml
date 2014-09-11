@@ -48,7 +48,7 @@
          
       <filter
             alias="/"
-            class="com.zizibujuan.drip.server.configurator.servlet.RestHtmlFilter">
+            class="com.zizibujuan.drip.server.doc.configurator.servlet.RestHtmlFilter">
       </filter>
       <filter
             alias="/"
