@@ -107,4 +107,16 @@ public class FileServiceImpl implements FileService {
 			this.userService = null;
 		}
 	}
+	
+	public void setApplicationPropertyService(ApplicationPropertyService applicationPropertyService) {
+		logger.info("注入applicationPropertyService");
+		this.applicationPropertyService = applicationPropertyService;
+	}
+
+	public void unsetApplicationPropertyService(ApplicationPropertyService applicationPropertyService) {
+		if (this.applicationPropertyService == applicationPropertyService) {
+			logger.info("注销applicationPropertyService");
+			this.applicationPropertyService = null;
+		}
+	}
 }
