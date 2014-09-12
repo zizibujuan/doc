@@ -75,7 +75,7 @@ public class FileDaoImpl extends AbstractDao implements FileDao {
 			+ "(?, now(), ?)";
 	@Override
 	public void addGitRepoInfo(Long userId, String gitRepoName) {
-		DatabaseUtil.insert(getDataSource(), SQL_INSERT_REPO, userId, gitRepoName);
+		DatabaseUtil.insert(getDataSource(), SQL_INSERT_REPO, gitRepoName, userId);
 	}
 	
 	private static final String SQL_INSERT_FILE_INFO = "INSERT INTO "
