@@ -68,7 +68,7 @@ public class FileServiceImpl implements FileService {
 	private void createDefaultGitRepo(UserInfo userInfo){
 		String docRootPath = applicationPropertyService.getForString(GitConstants.KEY_DOC_REPO_ROOT);
 		String gitRepoPath = docRootPath + userInfo.getLoginName() + "/" + DEFAULT_DOC_GIT_NAME;
-		
+		logger.info("git repo path: " + gitRepoPath);
 		GitUtils.init(gitRepoPath, userInfo.getLoginName(), userInfo.getEmail());
 	}
 	
