@@ -9,6 +9,7 @@
 <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/jquery/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/jquery/jquery.json.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 <script src="/ace/ace.js" charset="utf-8"></script>
@@ -85,15 +86,9 @@ $(document).ready(function(){
 	}
 	
 	btnSave.click(function(e){
-		var title = txtTitle.val().trim();
-		var commitMessage = txtCommitInfo.val().trim();
-		var fileContent = fileEditor.getValue().trim();
+		var data = getFormData();
 		
-		$.post("files", {
-			"title": title, 
-			"commitMessage": commitMessage, 
-			"content": fileContent
-		}).done(function(data){
+		$.post("/files", $.toJSON(data)).done(function(data){
 			
 			// 保存成功后， 跳转到登录用户的文档列表页面。 
 			// 如果这个地方是弹出的模式，则保存成功后，关闭弹出的面板。（这个模式待考虑）
