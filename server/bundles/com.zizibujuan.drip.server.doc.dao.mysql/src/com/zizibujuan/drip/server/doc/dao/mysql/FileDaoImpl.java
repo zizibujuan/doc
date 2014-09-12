@@ -57,7 +57,7 @@ public class FileDaoImpl extends AbstractDao implements FileDao {
 			+ "FROM "
 			+ "DRIP_USER_GIT_REPO "
 			+ "WHERE "
-			+ "CREATE_USER_ID=? AND "
+			+ "CRT_USER_ID=? AND "
 			+ "REPO_NAME=? "
 			+ "LIMIT 1";
 	@Override
