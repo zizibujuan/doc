@@ -22,6 +22,8 @@ public class UrlMapper {
 	private static final String ACTION_NEW = "new";
 	private static final String ACTION_EDIT = "edit";
 	
+	private Map<String, String> otherUrlMap;
+	
 	private Map<String, String> listUrlMap; // 跳转到查询列表页面，如果是单条记录，则跳转到视图页面
 	private Map<String, String> newUrlMap; // 跳转到新建资源页面
 	private Map<String, String> editUrlMap; // 跳转到编辑页面
@@ -41,7 +43,6 @@ public class UrlMapper {
 		listUrlMap.put("/projects", "/doc/projects/list.html");
 		listUrlMap.put("/blob", "/doc/files/blob.html");
 		listUrlMap.put("/settings", "/drip/profile.html");
-		listUrlMap.put("/completeUserInfo", "/useradmin/completeUserInfo.html");
 				
 		// new的一个约定，就是最后一个字母是new，TODO：此时要确保用户不会使用这个关键字
 		newUrlMap = new HashMap<String, String>();
@@ -67,6 +68,10 @@ public class UrlMapper {
 		
 		
 		authPageRestUrls.add("/drip/dashboard.html");
+		
+		// 存放独立页面，不包含增删改查的情况，一个页面代表一个业务。
+		otherUrlMap = new HashMap<String, String>();
+		otherUrlMap.put("/completeUserInfo", "/useradmin/completeUserInfo.html");
 	}
 	
 	/**
@@ -99,6 +104,9 @@ public class UrlMapper {
 		
 		int segmentCount = path.segmentCount();
 		if(segmentCount == 0){
+			if(otherUrlMap.containsKey(servletPath)){
+				return otherUrlMap.get(servletPath);
+			}
 			// 默认寻找list.html文件
 			return ROOT_WEB + servletPath + LIST_HTML;
 		}
