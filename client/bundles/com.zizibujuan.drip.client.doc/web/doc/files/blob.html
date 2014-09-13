@@ -114,8 +114,6 @@ vertical-align: top;
     			gfm: true,
     			highlight: function (code, lang) {
     			    try{
-    			    	//if(lang == "html"){lang = "xml";}
-    					//return code;
     			    	return hljs.highlight(lang, code).value;
     			    }catch(e){
     			    	console.error("高亮显示解析失败");
