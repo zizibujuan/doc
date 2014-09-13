@@ -1,13 +1,13 @@
 var SEPARATOR = "/";
 
-function Path(pathName){
+function Path(pathname){
 	// 去掉开始和结尾的"/"
-	pathname = pathname.replace(/^\/+|\/+$/g, '');
+	var p = pathname.replace(/^\/+|\/+$/g, '');
 	// 去掉重复的"/"
-	if (pathname.indexOf("//", 1) != -1){
-		pathname = this.collapseSlashes(pathname);
+	if (p.indexOf("//", 1) != -1){
+		p = this.collapseSlashes(p);
 	}
-	this.segments = pathname.split(SEPARATOR);
+	this.segments = p.split(SEPARATOR);
 }
 
 Path.prototype.collapseSlashes = function(pathname){
