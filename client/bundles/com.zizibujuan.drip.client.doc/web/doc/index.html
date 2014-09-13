@@ -97,7 +97,7 @@ vertical-align: top;
     			var cell = $("<div/>", {"class": ""});
     			cell.appendTo(li);
     			
-    			var a = $("<a></a>",{"class":"doc-title-link"}).attr("href", "/blob/" + element.fileName).html(element.title);
+    			var a = $("<a></a>",{"class":"doc-title-link"}).attr("href", "/blob/" + element.createUserName + "/" + element.fileName).html(element.title);
     			a.appendTo(cell);
     			var metaDiv = $("<div/>", {"class": "doc-meta"});
     			metaDiv.appendTo(cell);

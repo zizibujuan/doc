@@ -18,6 +18,7 @@
     <script src="/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/marked/marked.min.js"></script>
 	<script type="text/javascript" src="/highlight/highlight.pack.js"></script>
+	<script type="text/javascript" src="/doc/util/Path.js"></script>
 	
 <style type="text/css">
 
@@ -67,13 +68,23 @@ vertical-align: top;
 }
 
 
+   .markdown-body {
+       min-width: 200px;
+       max-width: 790px;
+       margin: 0 auto;
+       padding: 30px;
+   }
+
 </style>
     
    <script type="text/javascript">
+   // 获取页面链接
+   var path = new Path(window.location.pathname);
+   var loginName = path.segment(0);
+   var fileName = path.segment(1);
+   
     $(document).ready(function(){
-    	
-    	
-    	
+
     	var btnNewFile = $("#btnNewFile");
     	btnNewFile.click(function(e){
     		if(isAnonymousUser()){
@@ -95,32 +106,37 @@ vertical-align: top;
     		$("#loginDialog").modal("show");
     	}
     	
-    	var fileContent = "#aaa \n"+
-    	"`aa`";
-    	var blobDiv = $("#blob");
-    	marked.setOptions({
-			gfm: true,
-			highlight: function (code, lang) {
-			    try{
-			    	if(lang == "html"){lang = "xml";}
-					return code;
-			    	//return hljs.highlight(lang, code).value;
-			    }catch(e){
-			    	console.error("高亮显示解析失败");
-			    	return code;
-			    }
+    	
+    	$.get("/blob/" + loginName + "/" + fileName).done(function(data){
+    		var fileContent = data.content;
+        	var blobDiv = $("#blob");
+        	marked.setOptions({
+    			gfm: true,
+    			highlight: function (code, lang) {
+    			    try{
+    			    	if(lang == "html"){lang = "xml";}
+    					return code;
+    			    	//return hljs.highlight(lang, code).value;
+    			    }catch(e){
+    			    	console.error("高亮显示解析失败");
+    			    	return code;
+    			    }
 
-			},
-			langPrefix: 'lang-'
-		});
-		try{
-			blobDiv.html(marked(fileContent));
-		}catch(e){
-			// 如果解析失败，则显示原文
-			// 逻辑还是不够完善，尽量不允许解析错误，先要校验文件的有效性
-			blobDiv.html(fileContent);
-			console.error("marked解析失败");
-		}
+    			},
+    			langPrefix: 'lang-'
+    		});
+    		try{
+    			blobDiv.html(marked(fileContent));
+    		}catch(e){
+    			// 如果解析失败，则显示原文
+    			// 逻辑还是不够完善，尽量不允许解析错误，先要校验文件的有效性
+    			blobDiv.html(fileContent);
+    			console.error("marked解析失败");
+    		}
+    	}).fail(function(error){
+    		console.error(error);
+    	});
+    	
     	
     });
     
@@ -175,9 +191,9 @@ vertical-align: top;
 		</div>
 		<div>
 		
-			<div id="blob">
+			<article id="blob" class="markdown-body">
 			
-			</div>
+			</article>
 		
 		</div>
 	</div>

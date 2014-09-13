@@ -1,19 +1,16 @@
 package com.zizibujuan.drip.server.doc.servlet;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
-import org.eclipse.core.filesystem.EFS;
-import org.eclipse.core.filesystem.IFileInfo;
-import org.eclipse.core.filesystem.IFileStore;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 
 import com.zizibujuan.cm.server.service.ApplicationPropertyService;
@@ -32,6 +29,7 @@ import com.zizibujuan.drip.server.util.servlet.ResponseUtil;
 public class BlobServlet extends BaseServlet {
 	private static final long serialVersionUID = -2241539925566713677L;
 
+	private static final String DEFAULT_DOC_GIT_NAME = "default";
 	private ApplicationPropertyService applicationPropertyService;
 	
 	public BlobServlet(){
@@ -43,34 +41,21 @@ public class BlobServlet extends BaseServlet {
 			throws ServletException, IOException {
 		traceRequest(req);
 		IPath path = getPath(req);
-		if(path.segmentCount() > 2){
-			// blob/userName/projectName/[filePath]
-			String rootPath = applicationPropertyService.getForString(GitConstants.KEY_DOC_REPO_ROOT);
-			// 文件信息
-			URI fileLocation;
-			try {
-				fileLocation = new URI(rootPath + path.toString());
-			} catch (URISyntaxException e) {
-				handleException(resp, "路径语法错误", e);
-				return;
-			}
-			IFileStore fileStore = EFS.getLocalFileSystem().getStore(fileLocation);
+		// blob/loginName/fileName
+		if(path.segmentCount() == 2){
+			
+			String docRootPath = applicationPropertyService.getForString(GitConstants.KEY_DOC_REPO_ROOT);
+			String gitRepoPath = docRootPath + path.segment(0) + "/" + DEFAULT_DOC_GIT_NAME;
+			String realFilePath = gitRepoPath + "/" + path.segment(1);
 			StringWriter writer = new StringWriter();
-			try {
-				IOUtils.copy(fileStore.openInputStream(EFS.NONE, null), writer);
-				IFileInfo fileInfo = fileStore.fetchInfo();
-				FileInfo fileDetail = new FileInfo();
-				fileDetail.setContent(writer.toString());
-				//fileDetail.setFileName(fileInfo.getName());
-				fileDetail.setLongSize(fileInfo.getLength());
-				
-				ResponseUtil.toJSON(req, resp, fileDetail);
-			} catch (CoreException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			
+			File file = new File(realFilePath);
+			InputStream input = new FileInputStream(file);
+			IOUtils.copy(input, writer);
+			FileInfo fileDetail = new FileInfo();
+			fileDetail.setContent(writer.toString());
+			fileDetail.setLongSize(file.length());
+			// TODO: 获取更多详细信息
+			ResponseUtil.toJSON(req, resp, fileDetail);
 			// 提交信息
 			
 			// 所有参与编写文件的用户
