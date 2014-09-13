@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>文档首页</title>
+    <title></title>
 	<!-- Bootstrap -->
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="/highlight/styles/rainbow.css">
@@ -108,6 +108,7 @@ vertical-align: top;
     	
     	
     	$.get("/blob/" + loginName + "/" + fileName).done(function(data){
+    		document.title = data.title;
     		var fileContent = data.content;
         	var blobDiv = $("#blob");
         	marked.setOptions({
