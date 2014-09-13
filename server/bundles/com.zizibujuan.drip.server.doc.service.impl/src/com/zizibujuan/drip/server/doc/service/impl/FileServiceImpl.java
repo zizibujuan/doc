@@ -23,7 +23,7 @@ import com.zizibujuan.useradmin.server.service.UserService;
  */
 public class FileServiceImpl implements FileService {
 
-	private Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
 	private static final String DEFAULT_DOC_GIT_NAME = "default";
 	
 	private FileDao fileDao;
