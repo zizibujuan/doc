@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.zizibujuan.drip.server.util.servlet.RequestUtil;
 
@@ -25,7 +27,7 @@ import com.zizibujuan.drip.server.util.servlet.RequestUtil;
  */
 // TODO：添加测试用例。
 public class RestHtmlFilter implements Filter {
-	
+	private static final Logger logger = LoggerFactory.getLogger(RestHtmlFilter.class);
 	private UrlMapper urlMapper;
 
 	@Override
@@ -60,8 +62,9 @@ public class RestHtmlFilter implements Filter {
 			String servletPath = httpRequest.getServletPath();
 			String pathInfo = httpRequest.getPathInfo();
 			IPath path = (pathInfo == null ? Path.ROOT : new Path(pathInfo));
-			
+			logger.info("Servlet path is :{}, pathInfo is {}", servletPath, pathInfo);
 			String realFilePath = urlMapper.getResourcePath(servletPath, path);
+			logger.info("final real file path is {}", realFilePath);
 			if(realFilePath != null){
 				httpRequest.getRequestDispatcher(realFilePath).forward(httpRequest, httpResponse);
 				return;
