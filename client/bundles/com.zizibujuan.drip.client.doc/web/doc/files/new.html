@@ -2,6 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="keywords" content="优质文档,深度整理,软件开发">
+<meta name="description" content="孜孜不倦 - 共建共享优质的软件开发技术文档，智能互联每个程序员的智慧。">    
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>新建文件 </title>
@@ -89,8 +91,10 @@ $(document).ready(function(){
 		var data = getFormData();
 		
 		$.post("/files", $.toJSON(data)).done(function(data){
+			// 保存成功后，跳转到网站首页
+			window.location.href = "/";
 			
-			// 保存成功后， 跳转到登录用户的文档列表页面。 
+			// TODO: 保存成功后， 跳转到登录用户的文档列表页面。 
 			// 如果这个地方是弹出的模式，则保存成功后，关闭弹出的面板。（这个模式待考虑）
 			
 		}).fail(function(){
