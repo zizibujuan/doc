@@ -106,8 +106,8 @@ vertical-align: top;
     		$("#loginDialog").modal("show");
     	}
     	
-    	
-    	$.get("/blob/" + loginName + "/" + fileName).done(function(data){
+    	// TODO: 这里的连接与浏览器地址栏中的连接一样了，需要考虑如何处理
+    	$.ajax({url: "/blob/" + loginName + "/" + fileName, cache: false}).done(function(data){
     		document.title = data.title;
     		var fileContent = data.content;
         	var blobDiv = $("#blob");
