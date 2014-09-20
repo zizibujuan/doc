@@ -16,6 +16,7 @@
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/jquery/jquery-2.1.1.min.js"></script>
+    <script src="/jquery/jquery.cookie.js"></script>
     <script src="/doc/userView.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/bootstrap/js/bootstrap.min.js"></script>
@@ -99,13 +100,11 @@ vertical-align: top;
     		toNewFilePage();
     	});
     	
-    	//var loginUser = cookie("zzbj_user");
-    	
     	// 从服务器端判断用户是否已经登录
-    	var loginUser = null;
     	function isAnonymousUser(){
-    		return loginUser == null;
+    		return $.cookie("logged_in") != "1";
     	}
+    	
     	
     	function showLoginDialog(){
     		$("#loginDialog").modal("show");
