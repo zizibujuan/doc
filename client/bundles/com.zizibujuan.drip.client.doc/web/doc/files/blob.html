@@ -103,6 +103,10 @@ vertical-align: top;
     		toNewFilePage();
     	});
     	
+    	function toNewFilePage(){
+    		window.location.href = "/files/new";
+    	}
+    	
     	// 从服务器端判断用户是否已经登录
     	function isAnonymousUser(){
     		return $.cookie("logged_in") != "1";
