@@ -84,7 +84,7 @@ vertical-align: top;
 			
     	}).fail(function(error){
     		// 当前用户没有登录
-    		console.error(error);
+    		console.error("用户没有登录", error);
     	});
     	
     	var btnNewFile = $("#btnNewFile");
@@ -95,6 +95,10 @@ vertical-align: top;
     		}
     		toNewFilePage();
     	});
+    	
+    	function toNewFilePage(){
+    		window.location.href = "/files/new";
+    	}
     	
     	// 从服务器端判断用户是否已经登录
     	function isAnonymousUser(){
@@ -183,9 +187,14 @@ vertical-align: top;
 		<!-- 工具条 -->
 		<div style="margin-top: 10px; margin-bottom: 10px" class="clearfix">
 			<div style="float: right; padding-right:20px;">
-				<a id="linkUser" href="" style="margin-right: 10px">
-					<img id="imgUser" alt="" src="" />
-					<span id="spanUser"></span>
+				<a id="linkUser" href="" style="padding: 4px 8px;
+font-size: 13px;
+font-weight: bold;
+line-height: 20px;
+color: #333;
+text-decoration: none;">
+					<img id="imgUser" alt="" src="" style="border-radius: 3px"/>
+					<span id="spanUser" style=""></span>
 				</a>
 				
 				<button id="btnNewFile" type="button" title="创建文档" class="btn btn-default btn-lg">
