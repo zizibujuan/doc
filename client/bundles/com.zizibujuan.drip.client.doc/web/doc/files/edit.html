@@ -15,6 +15,7 @@
     <script src="/doc/userView.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/doc/util/Path.js"></script>
 <style type="text/css">
 
 html{
@@ -67,6 +68,12 @@ vertical-align: top;
 
 <script type="text/javascript">
 	// 加载要编辑的文档内容
+	var path = new Path(window.location.pathname);
+    var loginName = path.segment(1);
+    var fileName = path.segment(2);
+	$(document).ready(function(){
+		$("#hrefReturn").attr("href", "/blob/" + loginName + "/" + fileName);
+	});
 </script>
 
 </head>
@@ -76,6 +83,13 @@ vertical-align: top;
 	<div class="container" style="height: inherit;">
 		<!-- 工具条 开始 -->
 		<div style="margin-top: 10px; margin-bottom: 10px" class="clearfix">
+		
+		 <div style="float: left">
+		   		<a id="hrefReturn" href="">
+		   			<span class="glyphicon glyphicon-chevron-left"></span>
+		   		</a>
+		   </div>
+		   
 			<div style="float: right; padding-right:20px;">
 				<a id="linkUser" href="" style="padding: 4px 8px;
 					font-size: 13px;
