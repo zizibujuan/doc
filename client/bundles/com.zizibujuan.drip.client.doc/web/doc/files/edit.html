@@ -16,6 +16,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/doc/util/Path.js"></script>
+    <script src="/ace/ace.js" charset="utf-8"></script>
 <style type="text/css">
 
 html{
@@ -77,9 +78,22 @@ vertical-align: top;
 		
 		showUserZone();
 		
+		var fileEditor = ace.edit("txtFile");
+		fileEditor.setTheme("ace/theme/textmate");
+		fileEditor.getSession().setMode("ace/mode/markdown");
+		
 		$("#hrefReturn").attr("href", "/blob/" + loginName + "/" + fileName);
 		
 		// 加载要编辑的文档内容
+		$.ajax({url: "/blob/" + loginName + "/" + fileName, cache: false}).done(function(data){
+			document.title = "编辑 " + data.title;
+
+    		$("#txtTitle").val(data.title);
+    		fileEditor.setValue(data.content);
+    		
+		}).fail(function(error){
+			console.info("没有找到文件");
+		});
 		
 		// 内容发生了变化，才允许保存，如果内容太多，每次都比较，是不是不太合适呢？
 		
