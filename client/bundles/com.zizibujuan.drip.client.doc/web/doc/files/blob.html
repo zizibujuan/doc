@@ -139,6 +139,20 @@ vertical-align: top;
     	});
     	
     	
+    	var btnEditFile = $("#btnEditFile");
+    	// 先判断是否登录，如果没有登录，则弹出登录框
+    	// 如果已经登录，则直接跳转到修改页面
+    	btnEditFile.click(function(e){
+    		if(isAnonymousUser()){
+    			showLoginDialog();// 登录成功后，跳转到之前访问的页面
+    			return;
+    		}
+    		toEditFilePage();
+    	});
+    	function toEditFilePage(){
+    		window.location.href = "/files/edit";
+    	}
+    	
     });
     
     
@@ -164,7 +178,7 @@ vertical-align: top;
       </div>
       <div class="modal-body">
       <div>
-       <a href="/login/qq">使用QQ账号登录 <span class="glyphicon glyphicon-chevron-right"></span></a>
+       <a href="/login/qq" id="hrefQQ">使用QQ账号登录 <span class="glyphicon glyphicon-chevron-right"></span></a>
       </div>
         
       </div>

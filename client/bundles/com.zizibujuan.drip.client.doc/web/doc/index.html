@@ -13,6 +13,7 @@
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/jquery/jquery-2.1.1.min.js"></script>
+    <script src="/jquery/jquery.cookie.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/bootstrap/js/bootstrap.min.js"></script>
 <style type="text/css">
@@ -68,6 +69,24 @@ vertical-align: top;
    <script type="text/javascript">
     $(document).ready(function(){
     	
+    	// 如果用户已经登录，则显示用户信息
+    	$.getJSON("/users/").done(function(data){
+    		// 当前用户已登录
+    		$("#linkUser").attr("href", "/users/" + data.id);
+    		$("#imgUser").attr("alt", data.nickName);
+    		var smallImageUrl = data.smallImageUrl;
+			if(smallImageUrl != null && smallImageUrl != ""){
+				$("#imgUser").attr("src", smallImageUrl);
+			}else{
+				$("#imgUser").attr("src", "/useradmin/resources/images/profile_50_50.gif");
+			}
+			$("#spanUser").html(data.nickName || data.loginName);
+			
+    	}).fail(function(error){
+    		// 当前用户没有登录
+    		console.error(error);
+    	});
+    	
     	var btnNewFile = $("#btnNewFile");
     	btnNewFile.click(function(e){
     		if(isAnonymousUser()){
@@ -77,12 +96,9 @@ vertical-align: top;
     		toNewFilePage();
     	});
     	
-    	//var loginUser = cookie("zzbj_user");
-    	
     	// 从服务器端判断用户是否已经登录
-    	var loginUser = null;
     	function isAnonymousUser(){
-    		return loginUser == null;
+    		return $.cookie("logged_in") != "1";
     	}
     	
     	function showLoginDialog(){
@@ -167,9 +183,9 @@ vertical-align: top;
 		<!-- 工具条 -->
 		<div style="margin-top: 10px; margin-bottom: 10px" class="clearfix">
 			<div style="float: right; padding-right:20px;">
-				<a id="linkUser" href="">
+				<a id="linkUser" href="" style="margin-right: 10px">
 					<img id="imgUser" alt="" src="" />
-					<span id="spanUser">aa</span>
+					<span id="spanUser"></span>
 				</a>
 				
 				<button id="btnNewFile" type="button" title="创建文档" class="btn btn-default btn-lg">
