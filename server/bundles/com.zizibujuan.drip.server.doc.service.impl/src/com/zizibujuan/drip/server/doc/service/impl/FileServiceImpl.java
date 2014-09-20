@@ -35,6 +35,13 @@ public class FileServiceImpl implements FileService {
 		return fileDao.get(pageInfo);
 	}
 	
+
+	@Override
+	public FileInfo get(Long fileId) {
+		return fileDao.get(fileId);
+	}
+
+	
 	@Override
 	public boolean add(FileInfo fileInfo) {
 		Long userId = fileInfo.getCreateUserId();
@@ -119,4 +126,5 @@ public class FileServiceImpl implements FileService {
 			this.applicationPropertyService = null;
 		}
 	}
+
 }

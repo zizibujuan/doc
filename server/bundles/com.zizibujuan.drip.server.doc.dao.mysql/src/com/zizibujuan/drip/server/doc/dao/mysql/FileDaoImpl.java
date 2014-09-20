@@ -52,6 +52,36 @@ public class FileDaoImpl extends AbstractDao implements FileDao {
 		}, pageInfo);
 	}
 	
+	private static final String SQL_GET_FILE = "SELECT "
+			+ "df.DBID, "
+			+ "df.DOC_TITLE, "
+			+ "df.CRT_TM, "
+			+ "df.CRT_USER_ID, "
+			+ "ui.LOGIN_NAME "
+			+ "FROM "
+			+ "DRIP_DOC_FILE df,"
+			+ "DRIP_USER_INFO ui "
+			+ "WHERE "
+			+ "df.CRT_USER_ID=ui.DBID AND "
+			+ "df.DBID=?";
+	@Override
+	public FileInfo get(Long fileId) {
+		return DatabaseUtil.queryForObject(getDataSource(), SQL_GET_FILE, new RowMapper<FileInfo>() {
+
+			@Override
+			public FileInfo mapRow(ResultSet rs, int rowNum)
+					throws SQLException {
+				FileInfo fileInfo = new FileInfo();
+				fileInfo.setId(rs.getLong(1));
+				fileInfo.setTitle(rs.getString(2));
+				fileInfo.setCreateTime(rs.getTimestamp(3));
+				fileInfo.setCreateUserId(rs.getLong(4));
+				fileInfo.setCreateUserName(rs.getString(5));
+				return fileInfo;
+			}
+		}, fileId);
+	}
+	
 	private static final String SQL_GET_FIRST_MATCH_REPO = "SELECT "
 			+ "DBID "
 			+ "FROM "
@@ -96,5 +126,6 @@ public class FileDaoImpl extends AbstractDao implements FileDao {
 			}
 		});
 	}
+	
 
 }

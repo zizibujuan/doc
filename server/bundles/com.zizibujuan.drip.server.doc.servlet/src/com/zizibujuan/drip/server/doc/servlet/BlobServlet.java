@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IPath;
 import com.zizibujuan.cm.server.service.ApplicationPropertyService;
 import com.zizibujuan.cm.server.servlets.CMServiceHolder;
 import com.zizibujuan.drip.server.doc.model.FileInfo;
+import com.zizibujuan.drip.server.doc.service.FileService;
 import com.zizibujuan.drip.server.util.constant.GitConstants;
 import com.zizibujuan.drip.server.util.servlet.BaseServlet;
 import com.zizibujuan.drip.server.util.servlet.ResponseUtil;
@@ -31,9 +32,11 @@ public class BlobServlet extends BaseServlet {
 
 	private static final String DEFAULT_DOC_GIT_NAME = "default";
 	private ApplicationPropertyService applicationPropertyService;
+	private FileService fileService;
 	
 	public BlobServlet(){
 		applicationPropertyService = CMServiceHolder.getDefault().getApplicationPropertyService();
+		fileService = ServiceHolder.getDefault().getFileService();
 	}
 	
 	@Override
@@ -43,6 +46,12 @@ public class BlobServlet extends BaseServlet {
 		IPath path = getPath(req);
 		// blob/loginName/fileName
 		if(path.segmentCount() == 2){
+			String sFileId = path.segment(1);
+			if(sFileId.endsWith(".md")){
+				sFileId = sFileId.substring(0, sFileId.length()-3);
+			}
+			Long fileId = Long.valueOf(sFileId);
+			FileInfo fileInfo = fileService.get(fileId);
 			
 			String docRootPath = applicationPropertyService.getForString(GitConstants.KEY_DOC_REPO_ROOT);
 			String gitRepoPath = docRootPath + path.segment(0) + "/" + DEFAULT_DOC_GIT_NAME;
@@ -51,11 +60,11 @@ public class BlobServlet extends BaseServlet {
 			File file = new File(realFilePath);
 			InputStream input = new FileInputStream(file);
 			IOUtils.copy(input, writer);
-			FileInfo fileDetail = new FileInfo();
-			fileDetail.setContent(writer.toString());
-			fileDetail.setLongSize(file.length());
+
+			fileInfo.setContent(writer.toString());
+			fileInfo.setLongSize(file.length());
 			// TODO: 获取更多详细信息
-			ResponseUtil.toJSON(req, resp, fileDetail);
+			ResponseUtil.toJSON(req, resp, fileInfo);
 			// 提交信息
 			
 			// 所有参与编写文件的用户

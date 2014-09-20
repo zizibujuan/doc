@@ -28,4 +28,12 @@ public interface FileService {
 	 * @return 成功标志
 	 */
 	boolean add(FileInfo fileInfo);
+
+	/**
+	 * 根据文件标识，获取文件基本信息
+	 * 
+	 * @param fileId 文件标识
+	 * @return 文件基本信息
+	 */
+	FileInfo get(Long fileId);
 }

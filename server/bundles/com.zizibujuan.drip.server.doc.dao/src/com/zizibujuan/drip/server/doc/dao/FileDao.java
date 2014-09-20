@@ -20,6 +20,14 @@ public interface FileDao {
 	 * @return 文档列表，按照文档创建时间倒排。
 	 */
 	List<FileInfo> get(PageInfo pageInfo);
+	
+	/**
+	 * 根据文件标识，获取文件基本信息
+	 * 
+	 * @param fileId 文件标识
+	 * @return 文件基本信息
+	 */
+	FileInfo get(Long fileId);
 
 	/**
 	 * 判断用户是否有指定的git仓库
