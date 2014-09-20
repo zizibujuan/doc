@@ -15,7 +15,7 @@ function showUserZone(){
 		
 	}).fail(function(error){
 		// 当前用户没有登录
-		console.error("用户没有登录", error);
+		console.info("用户没有登录");
 	});
 }
 
