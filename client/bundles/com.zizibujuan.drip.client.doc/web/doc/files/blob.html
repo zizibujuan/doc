@@ -16,6 +16,7 @@
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/jquery/jquery-2.1.1.min.js"></script>
+    <script src="/doc/userView.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/marked/marked.min.js"></script>
@@ -86,6 +87,8 @@ vertical-align: top;
    var fileName = path.segment(2);
    
     $(document).ready(function(){
+    	
+    	showUserZone();
 
     	var btnNewFile = $("#btnNewFile");
     	btnNewFile.click(function(e){
@@ -194,6 +197,15 @@ vertical-align: top;
 		<!-- 工具条 -->
 		<div style="margin-top: 10px; margin-bottom: 10px" class="clearfix">
 			<div style="float: right; padding-right:20px;" >
+				<a id="linkUser" href="" style="padding: 4px 8px;
+					font-size: 13px;
+					font-weight: bold;
+					line-height: 20px;
+					color: #333;
+					text-decoration: none;">
+					<img id="imgUser" alt="" src="" style="border-radius: 3px"/>
+					<span id="spanUser" style=""></span>
+				</a>
 				
 				<button id="btnEditFile" type="button" title="修改" class="btn btn-default btn-lg">
 				  	<span class="glyphicon glyphicon-pencil"></span> 修改

@@ -12,6 +12,7 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/jquery/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/jquery/jquery.json.min.js"></script>
+<script src="/doc/userView.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 <script src="/ace/ace.js" charset="utf-8"></script>
@@ -36,6 +37,10 @@
 	*/
 	
 $(document).ready(function(){
+	
+	showUserZone();
+	
+	
 	var fileEditor = ace.edit("txtFile");
 	fileEditor.setTheme("ace/theme/textmate");
 	fileEditor.getSession().setMode("ace/mode/markdown");
@@ -135,7 +140,24 @@ body{
 <body style="background-color: #fff; height: 100%">
 
 <div style="height: inherit;">
-	<div class="container" style="height: inherit; padding-top: 20px">
+	<div class="container" style="height: inherit;">
+	
+		<!-- 工具条 开始 -->
+		<div style="margin-top: 10px; margin-bottom: 10px" class="clearfix">
+			<div style="float: right; padding-right:20px;">
+				<a id="linkUser" href="" style="padding: 4px 8px;
+					font-size: 13px;
+					font-weight: bold;
+					line-height: 20px;
+					color: #333;
+					text-decoration: none;">
+					<img id="imgUser" alt="" src="" style="border-radius: 3px"/>
+					<span id="spanUser" style=""></span>
+				</a>
+			</div>
+		</div>
+		<!-- 工具条 结束 -->
+		
 		<div id="fileForm">
 		
 			<form role="form">

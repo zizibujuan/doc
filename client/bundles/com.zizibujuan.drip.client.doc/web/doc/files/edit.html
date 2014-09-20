@@ -1,43 +1,116 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>正在编辑</title>
-<link type="text/css" rel="stylesheet" href="/drip/resources/app.css" />
-<link type="text/css" rel="stylesheet" href="/drip/resources/font-awesome/css/font-awesome.css" />
-<script type="text/javascript" 
-	data-dojo-config="
-		async:true,
-		parseOnLoad:false,
-		isDebug:true" 
-	src="/dojo/dojo.js"></script>
-<script src="/ace/ace.js" charset="utf-8"></script>
-<script type="text/javascript">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="优质文档,深度整理,软件开发">
+	<meta name="description" content="孜孜不倦 - 共建共享优质的软件开发技术文档，智能互联每个程序员的智慧。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>孜孜不倦 编辑文档</title>
+	<!-- Bootstrap -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/jquery/jquery-2.1.1.min.js"></script>
+    <script src="/jquery/jquery.cookie.js"></script>
+    <script src="/doc/userView.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+<style type="text/css">
 
-	var pathName = window.location.pathname;
-	require([ "doc/files/EditFileForm",
-	          "drip/widget/Header",
-	          "dojo/domReady!"], function(
-	        		  EditFileForm,
-	        		  Header){
-		var header = new Header({}, "header");
-		var fileForm = new EditFileForm({
-			pathName: pathName
-		}, "files");
-		
-		fileForm.startup();
-		
-	});
+html{
+height: 100%
+}
+
+body{
+	padding: 0px;
+	margin: 0px;
+}
+
+.container{
+	width: 980px;
+	background-color: white
+}
+
+.file-row{
+	padding-bottom: 20px;
+}
+
+#fileList{
+
+}
+
+.doc-title-link{
+	display: inline-block;
+	margin-bottom: 2px;
+	padding-right: 3px;
+	font-size: 15px;
+	font-weight: bold;
+	color: #333;
+	line-height: 1.2;
+	word-break: break-word;
+}
+
+.doc-meta {
+	margin-top: 1px;
+	font-weight: normal;
+	color: #999;
 	
+	position: relative;
+display: table-cell;
+
+font-size: 12px;
+vertical-align: top;
+}
+
+
+</style>
+
+<script type="text/javascript">
+	// 加载要编辑的文档内容
 </script>
+
 </head>
-<body class="claro">
-	<div id="wrapper" class="drip_body">
-		<div id="header" style="min-height:43px"></div>
-		<div id="files" class="edit-file">
+<body style="background-color: #fff;">
+
+<div style="height: inherit;">
+	<div class="container" style="height: inherit;">
+		<!-- 工具条 开始 -->
+		<div style="margin-top: 10px; margin-bottom: 10px" class="clearfix">
+			<div style="float: right; padding-right:20px;">
+				<a id="linkUser" href="" style="padding: 4px 8px;
+					font-size: 13px;
+					font-weight: bold;
+					line-height: 20px;
+					color: #333;
+					text-decoration: none;">
+					<img id="imgUser" alt="" src="" style="border-radius: 3px"/>
+					<span id="spanUser" style=""></span>
+				</a>
+			</div>
+		</div>
+		<!-- 工具条 结束 -->
+		
+		<div id="fileForm">
+		
+			<form role="form">
+			  <div class="form-group">
+			    <label for="txtTitle">标题</label>
+			    <input type="text" class="form-control" id="txtTitle">
+			  </div>
+			  <div class="form-group">
+			    <label for="txtFile">内容  <span style="color: gray; font-weight: normal">使用markdown格式</span></label>
+			    <div id="txtFile"></div>
+			  </div>
+			  <div class="form-group">
+			    <label for="txtCommitInfo">修改说明</label>
+			    <textarea class="form-control" rows="3" id="txtCommitInfo"></textarea>
+			  </div>
+			  <button type="button" class="btn btn-primary" disabled="disabled" id="btnSave"><span class="glyphicon glyphicon-floppy-disk"></span> 保存</button>
+			</form>
 		
 		</div>
-		
 	</div>
+</div>
+
 </body>
 </html>
