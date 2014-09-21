@@ -153,7 +153,7 @@ vertical-align: top;
 		btnSave.click(function(e){
 			var newFileInfo = getFormData();
 			newFileInfo.id = oldFileInfo.id;
-			$.ajax({url: "/files", data:$.toJSON(data), type:"PUT"}).done(function(data){
+			$.ajax({url: "/files", data:$.toJSON(newFileInfo), type:"PUT"}).done(function(data){
 				// 修改成功后，跳转到blob页面
 				window.location.href = "/blob/" + loginName + "/" + fileName;
 			}).fail(function(error){

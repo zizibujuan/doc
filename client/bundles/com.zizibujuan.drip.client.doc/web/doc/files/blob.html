@@ -153,7 +153,9 @@ vertical-align: top;
     	// 如果已经登录，则直接跳转到修改页面
     	btnEditFile.click(function(e){
     		if(isAnonymousUser()){
-    			showLoginDialog();// 登录成功后，跳转到之前访问的页面
+    			// 登录成功后，跳转到修改页面
+    			$("#hrefQQ").attr("href", "/login/qq?returnUrl=/files/edit/" + loginName + "/" + fileName);
+    			showLoginDialog();
     			return;
     		}
     		toEditFilePage();
