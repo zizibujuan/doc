@@ -88,6 +88,10 @@ vertical-align: top;
 		
 		showUserZone();
 		
+		var txtTitle = $("#txtTitle");
+		var txtCommitInfo = $("#txtCommitInfo");
+		var btnSave = $("#btnSave");
+		
 		var fileEditor = ace.edit("txtFile");
 		fileEditor.setTheme("ace/theme/textmate");
 		fileEditor.getSession().setMode("ace/mode/markdown");
@@ -117,8 +121,6 @@ vertical-align: top;
 			console.info("没有找到文件");
 		});
 		
-		var btnSave = $("#btnSave");
-
 		function validateForm(oldData){
 			var fileInfo = getFormData();
 			var result = validate(oldData, fileInfo);
