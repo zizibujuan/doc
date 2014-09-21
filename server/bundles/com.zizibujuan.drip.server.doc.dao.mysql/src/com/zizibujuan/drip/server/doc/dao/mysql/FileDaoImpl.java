@@ -1,5 +1,6 @@
 package com.zizibujuan.drip.server.doc.dao.mysql;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import com.zizibujuan.drip.server.util.dao.AbstractDao;
 import com.zizibujuan.drip.server.util.dao.DatabaseUtil;
 import com.zizibujuan.drip.server.util.dao.PreparedStatementSetter;
 import com.zizibujuan.drip.server.util.dao.RowMapper;
+import com.zizibujuan.drip.server.util.dao.exception.DataAccessException;
 
 /**
  * 文档管理数据访问实现类
@@ -125,6 +127,52 @@ public class FileDaoImpl extends AbstractDao implements FileDao {
 				ps.setLong(2, fileInfo.getCreateUserId());
 			}
 		});
+	}
+	
+	private static final String SQL_UPDATE_FILE_TITLE = "UPDATE "
+			+ "DRIP_DOC_FILE "
+			+ "SET DOC_TITLE=? "
+			+ "WHERE DBID=?";
+
+	private static final String SQL_INSERT_UPDATE_FILE_LOG = "INSERT INTO "
+			+ "DRIP_DOC_FILE_UPDATE_LOG "
+			+ "(DOC_FILE_ID, "
+			+ "UPT_TM, "
+			+ "UPT_USER_ID) "
+			+ "VALUES "
+			+ "(?, now(), ?)";
+	@Override
+	public boolean update(final Long id, final FileInfo fileInfo) {
+		boolean result = false;
+		Connection con = null;
+		try{
+			con = getDataSource().getConnection();
+			con.setAutoCommit(false);
+			DatabaseUtil.update(con, SQL_UPDATE_FILE_TITLE, new PreparedStatementSetter() {
+				
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setString(1, fileInfo.getTitle());
+					ps.setLong(2, id);
+				}
+			});
+			DatabaseUtil.insert(con, SQL_INSERT_UPDATE_FILE_LOG, new PreparedStatementSetter() {
+				
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setLong(1, id);
+					ps.setLong(2, fileInfo.getUpdateUserId());
+				}
+			} );
+			con.commit();
+			result = true;
+		}catch(Exception e){
+			DatabaseUtil.safeRollback(con);
+			throw new DataAccessException(e);
+		}finally{
+			DatabaseUtil.closeConnection(con);
+		}
+		return result;
 	}
 	
 

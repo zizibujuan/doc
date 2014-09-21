@@ -36,4 +36,11 @@ public interface FileService {
 	 * @return 文件基本信息
 	 */
 	FileInfo get(Long fileId);
+
+	/**
+	 * 更新文档内容，如果只修改了标题，则
+	 * @param fileInfo 新内容
+	 * @return 成功标识
+	 */
+	boolean update(FileInfo fileInfo);
 }

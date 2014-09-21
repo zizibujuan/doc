@@ -53,5 +53,14 @@ public interface FileDao {
 	 * @return 如果添加成功，则返回文档标识；否则返回null。
 	 */
 	Long add(FileInfo fileInfo);
+
+	/**
+	 * 更新文档内容
+	 * 
+	 * @param id 文档原有标识
+	 * @param fileInfo 文档内容
+	 * @return 如果更新成功，则返回<code>true</code>;否则返回<code>false</code>
+	 */
+	boolean update(Long id, FileInfo fileInfo);
 	
 }

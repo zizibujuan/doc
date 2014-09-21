@@ -91,6 +91,17 @@ public class FileServiceImpl implements FileService {
 						fileInfo.getCommitMessage());
 	}
 	
+	@Override
+	public boolean update(FileInfo fileInfo) {
+		boolean result = false;
+		// 如果文件内容发生了变化，则保存；如果没有变化，则不保存。
+		UserInfo userInfo = userService.getById(fileInfo.getUpdateUserId());
+		addFileToDefaultGitRepo(userInfo, fileInfo);
+		// 更新文件标题等基本信息
+		result = fileDao.update(fileInfo.getId(), fileInfo);
+		return result;
+	}
+	
 	public void setFileDao(FileDao fileDao) {
 		logger.info("注入fileDao");
 		this.fileDao = fileDao;
@@ -126,5 +137,6 @@ public class FileServiceImpl implements FileService {
 			this.applicationPropertyService = null;
 		}
 	}
+
 
 }

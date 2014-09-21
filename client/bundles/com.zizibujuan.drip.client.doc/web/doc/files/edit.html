@@ -11,6 +11,7 @@
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/jquery/jquery.json.min.js"></script>
     <script src="/jquery/jquery.cookie.js"></script>
     <script src="/doc/userView.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -94,18 +95,69 @@ vertical-align: top;
 		$("#hrefReturn").attr("href", "/blob/" + loginName + "/" + fileName);
 		
 		// 加载要编辑的文档内容
+		var oldFileInfo = null;
 		$.ajax({url: "/blob/" + loginName + "/" + fileName, cache: false}).done(function(data){
 			document.title = "编辑 " + data.title;
-
+			oldFileInfo = data;
     		$("#txtTitle").val(data.title);
     		fileEditor.setValue(data.content);
+    		
+    		// 数据有效性校验
+    		txtTitle.on("input", function(e){
+    			validateForm(data);
+    		});
+    		txtCommitInfo.on("input", function(e){
+    			validateForm(data);
+    		});
+    		fileEditor.on("change", function(e){
+    			validateForm(data);
+    		});
     		
 		}).fail(function(error){
 			console.info("没有找到文件");
 		});
 		
-		// 内容发生了变化，才允许保存，如果内容太多，每次都比较，是不是不太合适呢？
+		var btnSave = $("#btnSave");
+
+		function validateForm(oldData){
+			var fileInfo = getFormData();
+			var result = validate(oldData, fileInfo);
+			if(result){
+				btnSave.attr("disabled", false);
+			}else{
+				btnSave.attr("disabled", true);
+			}
+		}
 		
+		function getFormData(){
+			var title = txtTitle.val().trim();
+			var commitMessage = txtCommitInfo.val().trim();
+			var fileContent = fileEditor.getValue().trim();
+			return {
+				"title": title,
+				"content": fileContent,
+				"commitMessage": commitMessage
+			};
+		}
+		
+		function validate(oldFileInfo, newFileInfo){
+			return (newFileInfo.title != oldFileInfo.title ||
+					newFileInfo.content != oldFileInfo.content) &&
+					newFileInfo.commitMessage != "" &&
+					newFileInfo.title != "" &&
+					newFileInfo.content != "";
+		}
+		// 内容发生了变化，才允许保存，如果内容太多，每次都比较，是不是不太合适呢？
+		btnSave.click(function(e){
+			var newFileInfo = getFormData();
+			newFileInfo.id = oldFileInfo.id;
+			$.ajax({url: "/files", data:$.toJSON(data), type:"PUT"}).done(function(data){
+				// 修改成功后，跳转到blob页面
+				window.location.href = "/blob/" + loginName + "/" + fileName;
+			}).fail(function(error){
+				console.warn("保存修改后的文档出错了。");
+			});
+		});
 		
 	});
 </script>

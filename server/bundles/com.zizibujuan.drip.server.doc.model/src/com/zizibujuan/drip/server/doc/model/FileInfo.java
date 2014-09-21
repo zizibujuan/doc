@@ -27,6 +27,8 @@ public class FileInfo {
 	private Long createUserId;
 	
 	private String createUserName;
+	
+	private Long updateUserId;
 
 	/**
 	 * 获取文件标识
@@ -150,6 +152,14 @@ public class FileInfo {
 
 	public void setCreateUserName(String createUserName) {
 		this.createUserName = createUserName;
+	}
+
+	public Long getUpdateUserId() {
+		return updateUserId;
+	}
+
+	public void setUpdateUserId(Long updateUserId) {
+		this.updateUserId = updateUserId;
 	}
 
 	
