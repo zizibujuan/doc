@@ -1,7 +1,10 @@
 package com.zizibujuan.drip.server.doc.configurator.servlet;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.List;
@@ -53,17 +56,20 @@ public class WelcomeFileFilter implements Filter {
 		}
 		// 判断是否访问首页地址
 		if (requestPath.equals("/")) { //$NON-NLS-1$
-			// String fileName = "";
+			String fileName = "";
 			// TODO: 将html文件缓存起来
-			// fileName = requestPath + "doc/index.html";
+			fileName = requestPath + "doc/index.html";
 			httpResponse.setHeader("Cache-Control", "no-cache"); //$NON-NLS-1$ //$NON-NLS-2$
 			httpResponse.setHeader("Cache-Control", "no-store"); //$NON-NLS-1$ //$NON-NLS-2$
 			
-			String path = httpRequest.getSession().getServletContext().getRealPath("/doc");
-			logger.info("path:" + path);
+			InputStream in = httpRequest.getSession().getServletContext().getResourceAsStream("/doc/index.html");
+			logger.info("inputStream from /doc/index.html is:" + in);
+			Writer sWriter = new StringWriter();
+			IOUtils.copy(in, sWriter);
+			StringReader reader = new StringReader(sWriter.toString());
 			
-			MustacheFactory mf = new DefaultMustacheFactory(path);
-			Mustache mustache = mf.compile("index.html");
+			MustacheFactory mf = new DefaultMustacheFactory();
+			Mustache mustache = mf.compile(reader, "doc_index_html");
 			Writer writer = response.getWriter();
 			
 			String range = httpRequest.getHeader("Range");
