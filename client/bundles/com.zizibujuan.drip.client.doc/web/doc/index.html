@@ -96,6 +96,7 @@ vertical-align: top;
     		$("#loginDialog").modal("show");
     	}
     	
+    	/*
     	var fileListUl = $("#fileList");
     	
     	$.getJSON("/files", function(data){
@@ -128,6 +129,7 @@ vertical-align: top;
     			li.appendTo(fileListUl);
     		});
     	});
+    	*/
     	
     	
     	// TODO: 如果用户已登录，则显示用户登录信息
@@ -198,10 +200,20 @@ vertical-align: top;
 	  			<div class="panel-heading">最新文档</div>
 	
 	  			<ul class="list-group" id="fileList">
-				  
+				  {{#files}}
+				  	<li class="list-group-item">
+				  		<div>
+				  			<a class="doc-title-link" href="/blob/{{createUserName}}/{{fileName}}">{{title}}</a>
+				  			<div class="doc-meta">
+				  				<a href="/users/{{createUserId}}" style="color: #777">{{createUserName}} </a>
+				  				<span>发布于</span><time datetime="{{createTime}}" title="{{createTime}}">{{createTime}}</time>
+				  			</div>
+				  		</div>
+				  	</li>
+				  {{/files}}
 				</ul>
 			</div>
-
+    			
 			
 			<!-- 
 			<ul class="pagination">

@@ -1,6 +1,10 @@
 package com.zizibujuan.drip.server.doc.configurator.servlet;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -10,6 +14,16 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.IOUtils;
+
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
+import com.github.mustachejava.MustacheFactory;
+import com.zizibujuan.drip.server.doc.model.FileInfo;
+import com.zizibujuan.drip.server.doc.service.FileService;
+import com.zizibujuan.drip.server.doc.servlet.ServiceHolder;
+import com.zizibujuan.drip.server.util.PageInfo;
 
 
 
@@ -22,6 +36,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class WelcomeFileFilter implements Filter {
 
+	private FileService fileService; 
+	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws ServletException, IOException {
@@ -35,11 +51,29 @@ public class WelcomeFileFilter implements Filter {
 		// 判断是否访问首页地址
 		if (requestPath.equals("/")) { //$NON-NLS-1$
 			String fileName = "";
+			// TODO: 将html文件缓存起来
 			fileName = requestPath + "doc/index.html";
 			httpResponse.setHeader("Cache-Control", "no-cache"); //$NON-NLS-1$ //$NON-NLS-2$
 			httpResponse.setHeader("Cache-Control", "no-store"); //$NON-NLS-1$ //$NON-NLS-2$
 			
-			httpRequest.getRequestDispatcher(fileName).forward(httpRequest, response);
+			String path = httpRequest.getSession().getServletContext().getRealPath("/doc");
+			MustacheFactory mf = new DefaultMustacheFactory(path);
+			Mustache mustache = mf.compile("index.html");
+			Writer writer = response.getWriter();
+			
+			String range = httpRequest.getHeader("Range");
+			if(range == null){
+				range = httpRequest.getHeader("range");
+			}
+			PageInfo pageInfo = null;
+			if(range != null){
+				pageInfo = new PageInfo(range);
+			}
+			List<FileInfo> files = fileService.get(pageInfo);
+			mustache.execute(writer, files);
+			writer.flush();
+			
+			//httpRequest.getRequestDispatcher(fileName).forward(httpRequest, response);
 			
 			return;
 		}
@@ -54,7 +88,7 @@ public class WelcomeFileFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-		// do nothing
+		fileService = ServiceHolder.getDefault().getFileService();
 	}
 
 }
