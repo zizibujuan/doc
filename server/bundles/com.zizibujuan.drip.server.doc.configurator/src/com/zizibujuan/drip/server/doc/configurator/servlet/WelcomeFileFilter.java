@@ -7,7 +7,9 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -72,7 +74,10 @@ public class WelcomeFileFilter implements Filter {
 			
 			MustacheFactory mf = new DefaultMustacheFactory();
 			Mustache mustache = mf.compile(reader, "doc_index_html");
+			
+			response.setCharacterEncoding("utf-8");
 			Writer writer = response.getWriter();
+			
 			
 			String range = httpRequest.getHeader("Range");
 			if(range == null){
@@ -83,7 +88,9 @@ public class WelcomeFileFilter implements Filter {
 				pageInfo = new PageInfo(range);
 			}
 			List<FileInfo> files = fileService.get(pageInfo);
-			mustache.execute(writer, files);
+			Map<String, List<FileInfo>> fileMap = new HashMap<String, List<FileInfo>>();
+			fileMap.put("files", files);
+			mustache.execute(writer, fileMap);
 			writer.flush();
 			
 			//httpRequest.getRequestDispatcher(fileName).forward(httpRequest, response);
