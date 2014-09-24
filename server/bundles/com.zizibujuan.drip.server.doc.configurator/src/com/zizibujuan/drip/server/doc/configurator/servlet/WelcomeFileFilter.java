@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
@@ -36,7 +38,8 @@ import com.zizibujuan.drip.server.util.PageInfo;
  */
 public class WelcomeFileFilter implements Filter {
 
-	private FileService fileService; 
+	private static final Logger logger = LoggerFactory.getLogger(WelcomeFileFilter.class);
+	private FileService fileService;
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
@@ -50,13 +53,15 @@ public class WelcomeFileFilter implements Filter {
 		}
 		// 判断是否访问首页地址
 		if (requestPath.equals("/")) { //$NON-NLS-1$
-			String fileName = "";
+			// String fileName = "";
 			// TODO: 将html文件缓存起来
-			fileName = requestPath + "doc/index.html";
+			// fileName = requestPath + "doc/index.html";
 			httpResponse.setHeader("Cache-Control", "no-cache"); //$NON-NLS-1$ //$NON-NLS-2$
 			httpResponse.setHeader("Cache-Control", "no-store"); //$NON-NLS-1$ //$NON-NLS-2$
 			
 			String path = httpRequest.getSession().getServletContext().getRealPath("/doc");
+			logger.info("path:" + path);
+			
 			MustacheFactory mf = new DefaultMustacheFactory(path);
 			Mustache mustache = mf.compile("index.html");
 			Writer writer = response.getWriter();
