@@ -68,9 +68,7 @@ public class WelcomeFileFilter implements Filter {
 			logger.info("inputStream from /doc/index.html is:" + in);
 			Writer sWriter = new StringWriter();
 			IOUtils.copy(in, sWriter, "UTF-8");
-			String html = sWriter.toString();
-			logger.info("html is:" + html);
-			StringReader reader = new StringReader(html);
+			StringReader reader = new StringReader(sWriter.toString());
 			
 			MustacheFactory mf = new DefaultMustacheFactory();
 			Mustache mustache = mf.compile(reader, "doc_index_html");
@@ -91,10 +89,7 @@ public class WelcomeFileFilter implements Filter {
 			Map<String, List<FileInfo>> fileMap = new HashMap<String, List<FileInfo>>();
 			fileMap.put("files", files);
 			mustache.execute(writer, fileMap);
-			writer.flush();
-			
-			//httpRequest.getRequestDispatcher(fileName).forward(httpRequest, response);
-			
+			writer.flush();			
 			return;
 		}
 		
