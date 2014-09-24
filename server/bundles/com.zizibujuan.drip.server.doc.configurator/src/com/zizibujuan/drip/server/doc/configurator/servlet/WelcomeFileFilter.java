@@ -65,8 +65,10 @@ public class WelcomeFileFilter implements Filter {
 			InputStream in = httpRequest.getSession().getServletContext().getResourceAsStream("/doc/index.html");
 			logger.info("inputStream from /doc/index.html is:" + in);
 			Writer sWriter = new StringWriter();
-			IOUtils.copy(in, sWriter);
-			StringReader reader = new StringReader(sWriter.toString());
+			IOUtils.copy(in, sWriter, "UTF-8");
+			String html = sWriter.toString();
+			logger.info("html is:" + html);
+			StringReader reader = new StringReader(html);
 			
 			MustacheFactory mf = new DefaultMustacheFactory();
 			Mustache mustache = mf.compile(reader, "doc_index_html");
