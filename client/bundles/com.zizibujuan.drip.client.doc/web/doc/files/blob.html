@@ -6,7 +6,7 @@
 	<meta name="description" content="孜孜不倦 - 共建共享优质的软件开发技术文档，智能互联每个程序员的智慧。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>{{title}}</title>
 	<!-- Bootstrap -->
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="/highlight/styles/rainbow.css">
@@ -117,7 +117,32 @@ vertical-align: top;
     		$("#loginDialog").modal("show");
     	}
     	
+    	var blobDiv = $("#blob");
+    	var fileContent = blobDiv.html();
+    	marked.setOptions({
+			gfm: true,
+			highlight: function (code, lang) {
+			    try{
+			    	return hljs.highlight(lang, code).value;
+			    }catch(e){
+			    	console.error("高亮显示解析失败");
+			    	return code;
+			    }
+
+			},
+			langPrefix: 'lang-'
+		});
+		try{
+			blobDiv.html(marked(fileContent));
+		}catch(e){
+			// 如果解析失败，则显示原文
+			// 逻辑还是不够完善，尽量不允许解析错误，先要校验文件的有效性
+			console.error("marked解析失败");
+		}
+		
+    	
     	// TODO: 这里的连接与浏览器地址栏中的连接一样了，需要考虑如何处理
+    	/*
     	$.ajax({url: "/blob/" + loginName + "/" + fileName, cache: false}).done(function(data){
     		document.title = data.title;
     		var fileContent = data.content;
@@ -146,6 +171,7 @@ vertical-align: top;
     	}).fail(function(error){
     		console.error(error);
     	});
+    	*/
     	
     	
     	var btnEditFile = $("#btnEditFile");
@@ -234,7 +260,7 @@ vertical-align: top;
 		<div>
 		
 			<article id="blob" class="markdown-body">
-			
+				{{content}}
 			</article>
 		
 		</div>

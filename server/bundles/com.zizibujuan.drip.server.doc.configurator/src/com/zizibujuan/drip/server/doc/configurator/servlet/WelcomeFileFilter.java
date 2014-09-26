@@ -65,7 +65,6 @@ public class WelcomeFileFilter implements Filter {
 			httpResponse.setHeader("Cache-Control", "no-store"); //$NON-NLS-1$ //$NON-NLS-2$
 			
 			InputStream in = httpRequest.getSession().getServletContext().getResourceAsStream("/doc/index.html");
-			logger.info("inputStream from /doc/index.html is:" + in);
 			Writer sWriter = new StringWriter();
 			IOUtils.copy(in, sWriter, "UTF-8");
 			StringReader reader = new StringReader(sWriter.toString());
