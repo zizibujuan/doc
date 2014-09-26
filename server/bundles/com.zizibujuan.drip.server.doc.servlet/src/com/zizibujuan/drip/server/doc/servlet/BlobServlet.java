@@ -8,7 +8,6 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -17,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.eclipse.core.runtime.IPath;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
@@ -27,7 +28,6 @@ import com.zizibujuan.drip.server.doc.model.FileInfo;
 import com.zizibujuan.drip.server.doc.service.FileService;
 import com.zizibujuan.drip.server.util.constant.GitConstants;
 import com.zizibujuan.drip.server.util.servlet.BaseServlet;
-import com.zizibujuan.drip.server.util.servlet.ResponseUtil;
 
 /**
  * 查看文件内容
@@ -38,6 +38,7 @@ import com.zizibujuan.drip.server.util.servlet.ResponseUtil;
 public class BlobServlet extends BaseServlet {
 	private static final long serialVersionUID = -2241539925566713677L;
 
+	private static final Logger logger = LoggerFactory.getLogger(BlobServlet.class);
 	private static final String DEFAULT_DOC_GIT_NAME = "default";
 	private ApplicationPropertyService applicationPropertyService;
 	private FileService fileService;
@@ -73,6 +74,8 @@ public class BlobServlet extends BaseServlet {
 			//fileInfo.setLongSize(file.length());
 			
 			InputStream in = req.getSession().getServletContext().getResourceAsStream("/doc/files/blob.html");
+			logger.info("in:" + in);
+			
 			Writer sWriter = new StringWriter();
 			IOUtils.copy(in, sWriter, "UTF-8");
 			StringReader reader = new StringReader(sWriter.toString());

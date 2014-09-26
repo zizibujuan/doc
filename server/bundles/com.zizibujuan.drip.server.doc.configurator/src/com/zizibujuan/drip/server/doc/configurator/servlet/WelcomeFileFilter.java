@@ -58,9 +58,7 @@ public class WelcomeFileFilter implements Filter {
 		}
 		// 判断是否访问首页地址
 		if (requestPath.equals("/")) { //$NON-NLS-1$
-			String fileName = "";
 			// TODO: 将html文件缓存起来
-			fileName = requestPath + "doc/index.html";
 			httpResponse.setHeader("Cache-Control", "no-cache"); //$NON-NLS-1$ //$NON-NLS-2$
 			httpResponse.setHeader("Cache-Control", "no-store"); //$NON-NLS-1$ //$NON-NLS-2$
 			
