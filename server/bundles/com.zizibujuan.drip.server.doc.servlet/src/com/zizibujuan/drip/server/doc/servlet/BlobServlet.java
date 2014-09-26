@@ -59,6 +59,13 @@ public class BlobServlet extends BaseServlet {
 			if(sFileId.endsWith(".md")){
 				sFileId = sFileId.substring(0, sFileId.length()-3);
 			}
+			
+			
+			
+			InputStream in = req.getSession().getServletContext().getResourceAsStream("/doc/files/blob.html");
+			logger.info("in:" + in);
+			
+			
 			Long fileId = Long.valueOf(sFileId);
 			FileInfo fileInfo = fileService.get(fileId);
 			
@@ -73,8 +80,7 @@ public class BlobServlet extends BaseServlet {
 			//fileInfo.setContent(writer.toString());
 			//fileInfo.setLongSize(file.length());
 			
-			InputStream in = req.getSession().getServletContext().getResourceAsStream("/doc/files/blob.html");
-			logger.info("in:" + in);
+			
 			
 			Writer sWriter = new StringWriter();
 			IOUtils.copy(in, sWriter, "UTF-8");

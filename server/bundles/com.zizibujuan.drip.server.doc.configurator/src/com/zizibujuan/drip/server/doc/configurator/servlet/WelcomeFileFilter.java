@@ -10,6 +10,7 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -63,6 +64,12 @@ public class WelcomeFileFilter implements Filter {
 			httpResponse.setHeader("Cache-Control", "no-store"); //$NON-NLS-1$ //$NON-NLS-2$
 			
 			InputStream in = httpRequest.getSession().getServletContext().getResourceAsStream("/doc/index.html");
+			logger.info("/doc/index.html", in);
+			InputStream blobStream = httpRequest.getSession().getServletContext().getResourceAsStream("/doc/files/blob.html");
+			logger.info("/doc/files/blob.html", blobStream);
+			Set<String> s =httpRequest.getSession().getServletContext().getResourcePaths("/");
+			logger.info(s.toString());
+			
 			Writer sWriter = new StringWriter();
 			IOUtils.copy(in, sWriter, "UTF-8");
 			StringReader reader = new StringReader(sWriter.toString());
