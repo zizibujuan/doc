@@ -9,6 +9,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -64,6 +65,9 @@ public class BlobServlet extends BaseServlet {
 			
 			InputStream in = req.getSession().getServletContext().getResourceAsStream("/doc/files/blob.html");
 			logger.info("in:" + in);
+			
+			Set<String> s =req.getSession().getServletContext().getResourcePaths("/");
+			logger.info(s.toString());
 			
 			
 			Long fileId = Long.valueOf(sFileId);
