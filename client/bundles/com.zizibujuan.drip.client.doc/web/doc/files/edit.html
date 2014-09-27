@@ -95,10 +95,16 @@ vertical-align: top;
 		var fileEditor = ace.edit("txtFile");
 		fileEditor.setTheme("ace/theme/textmate");
 		fileEditor.getSession().setMode("ace/mode/markdown");
+		fileEditor.setValue($("#txtContent").val());
+		
 		
 		$("#hrefReturn").attr("href", "/blob/" + loginName + "/" + fileName);
 		
-		var oldFileInfo = {{fileInfoJson}};
+		var oldFileInfo = {};
+		oldFileInfo.id = $("#fileId").val();
+		oldFileInfo.content = $("#txtContent").val();
+		oldFileInfo.title = $("#txtTitle").val();
+		
 		// 数据有效性校验
 		txtTitle.on("input", function(e){
 			validateForm(oldFileInfo);
@@ -155,7 +161,7 @@ vertical-align: top;
 
 </head>
 <body style="background-color: #fff;">
-
+<input type="hidden" id="fileId" value="{{id}}">
 <div style="height: inherit;">
 	<div class="container" style="height: inherit;">
 		<!-- 工具条 开始 -->
@@ -190,7 +196,7 @@ vertical-align: top;
 			  </div>
 			  <div class="form-group">
 			    <label for="txtFile">内容  <span style="color: gray; font-weight: normal">使用markdown格式</span></label>
-			    <div id="txtFile">{{content}}</div>
+			    <div id="txtFile"></div>
 			  </div>
 			  <div class="form-group">
 			    <label for="txtCommitInfo">修改说明</label>
@@ -202,6 +208,6 @@ vertical-align: top;
 		</div>
 	</div>
 </div>
-
+<textarea style="height:0px; width:0px; left:-100px; position:absolute" id="txtContent">{{content}}</textarea>
 </body>
 </html>
