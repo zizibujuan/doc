@@ -134,6 +134,7 @@ public class FileServlet extends BaseServlet {
 				
 				
 				Map<String, String> blob = new HashMap<String, String>();
+				blob.put("id", String.valueOf(fileId));
 				blob.put("content", fileWriter.toString());
 				blob.put("title", fileInfo.getTitle());
 				blob.put("fileInfoJson", JsonUtil.toJson(fileInfo));
