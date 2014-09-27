@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -61,13 +62,7 @@ public class BlobServlet extends BaseServlet {
 				sFileId = sFileId.substring(0, sFileId.length()-3);
 			}
 			
-			
-			
-			InputStream in = req.getSession().getServletContext().getResourceAsStream("/doc/files/blob.html");
-			logger.info("in:" + in);
-			
-			Set<String> s =req.getSession().getServletContext().getResourcePaths("/");
-			logger.info(s.toString());
+
 			
 			
 			Long fileId = Long.valueOf(sFileId);
@@ -83,13 +78,8 @@ public class BlobServlet extends BaseServlet {
 
 			//fileInfo.setContent(writer.toString());
 			//fileInfo.setLongSize(file.length());
-			
-			
-			
-			Writer sWriter = new StringWriter();
-			IOUtils.copy(in, sWriter, "UTF-8");
-			StringReader reader = new StringReader(sWriter.toString());
-			
+
+			Reader reader = new StringReader(MustacheTemplate.get("/doc/files/blob.html"));
 			MustacheFactory mf = new DefaultMustacheFactory();
 			Mustache mustache = mf.compile(reader, "doc_files_blob_html");
 			
