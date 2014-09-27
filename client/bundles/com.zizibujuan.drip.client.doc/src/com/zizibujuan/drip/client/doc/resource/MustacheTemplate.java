@@ -12,8 +12,6 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.osgi.framework.Bundle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.zizibujuan.drip.client.doc.Activator;
 
@@ -25,7 +23,6 @@ import com.zizibujuan.drip.client.doc.Activator;
  */
 public class MustacheTemplate {
 
-	private static final Logger logger = LoggerFactory.getLogger(MustacheTemplate.class);
 	private static Map<String, String> templates = new HashMap<String, String>();
 
 	public static void cache(String name, String templateString) {
@@ -49,18 +46,7 @@ public class MustacheTemplate {
 		Bundle bundle = Activator.getContext().getBundle();
 		String path = relativePath.startsWith("/") ? relativePath.substring(1) : relativePath;
 		URL url = bundle.getResource("web/" + path);
-		logger.info("url is:" + url);
-		
-		InputStream a = new MustacheTemplate().getClass().getResourceAsStream("/web/" + path);
-		logger.info("class:" + a);
-		
-		Object s = bundle.getEntryPaths("/");
-		logger.info("paths：s" + s);
-		
-		URL url1 = bundle.getEntry("web/" + path);
-		logger.info("entry:" + url1);
 				
-		
 		InputStream in = url.openStream();
 		Writer writer = new StringWriter();
 		IOUtils.copy(in, writer, "utf-8");
