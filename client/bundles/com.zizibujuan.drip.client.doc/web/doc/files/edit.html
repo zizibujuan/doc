@@ -98,27 +98,16 @@ vertical-align: top;
 		
 		$("#hrefReturn").attr("href", "/blob/" + loginName + "/" + fileName);
 		
-		// 加载要编辑的文档内容
-		var oldFileInfo = null;
-		$.ajax({url: "/blob/" + loginName + "/" + fileName, cache: false}).done(function(data){
-			document.title = "编辑 " + data.title;
-			oldFileInfo = data;
-    		$("#txtTitle").val(data.title);
-    		fileEditor.setValue(data.content);
-    		
-    		// 数据有效性校验
-    		txtTitle.on("input", function(e){
-    			validateForm(data);
-    		});
-    		txtCommitInfo.on("input", function(e){
-    			validateForm(data);
-    		});
-    		fileEditor.on("change", function(e){
-    			validateForm(data);
-    		});
-    		
-		}).fail(function(error){
-			console.info("没有找到文件");
+		var oldFileInfo = {{fileInfoJson}};
+		// 数据有效性校验
+		txtTitle.on("input", function(e){
+			validateForm(oldFileInfo);
+		});
+		txtCommitInfo.on("input", function(e){
+			validateForm(oldFileInfo);
+		});
+		fileEditor.on("change", function(e){
+			validateForm(oldFileInfo);
 		});
 		
 		function validateForm(oldData){
@@ -197,11 +186,11 @@ vertical-align: top;
 			<form role="form">
 			  <div class="form-group">
 			    <label for="txtTitle">标题</label>
-			    <input type="text" class="form-control" id="txtTitle">
+			    <input type="text" class="form-control" id="txtTitle" value="{{title}}">
 			  </div>
 			  <div class="form-group">
 			    <label for="txtFile">内容  <span style="color: gray; font-weight: normal">使用markdown格式</span></label>
-			    <div id="txtFile"></div>
+			    <div id="txtFile">{{content}}</div>
 			  </div>
 			  <div class="form-group">
 			    <label for="txtCommitInfo">修改说明</label>

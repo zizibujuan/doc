@@ -53,7 +53,7 @@ public class UrlMapper {
 		
 		// edit
 		editUrlMap = new HashMap<String, String>();
-		editUrlMap.put("/files", "/doc/files/edit.html");
+		//editUrlMap.put("/files", "/doc/files/edit.html");
 		editUrlMap.put("/exercises", "/drip/exercises/edit.html");
 		
 		viewUrlMap = new HashMap<String, String>();
