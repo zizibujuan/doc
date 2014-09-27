@@ -6,10 +6,14 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.osgi.framework.Bundle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.zizibujuan.drip.client.doc.Activator;
 
@@ -21,6 +25,7 @@ import com.zizibujuan.drip.client.doc.Activator;
  */
 public class MustacheTemplate {
 
+	private static final Logger logger = LoggerFactory.getLogger(MustacheTemplate.class);
 	private static Map<String, String> templates = new HashMap<String, String>();
 
 	public static void cache(String name, String templateString) {
@@ -41,7 +46,10 @@ public class MustacheTemplate {
 	}
 	
 	private static String getHtml(String relativePath) throws IOException{
-		InputStream in = Activator.getContext().getBundle().getResource("/web/" + relativePath).openStream();
+		Bundle bundle = Activator.getContext().getBundle();
+		URL url = bundle.getResource("/web/" + relativePath);
+		logger.info("url is:" + url);
+		InputStream in = url.openStream();
 		Writer writer = new StringWriter();
 		IOUtils.copy(in, writer, "utf-8");
 		return writer.toString();
