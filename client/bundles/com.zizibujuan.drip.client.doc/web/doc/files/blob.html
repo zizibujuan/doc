@@ -119,6 +119,7 @@ vertical-align: top;
     	
     	var blobDiv = $("#blob");
     	var fileContent = $("#txtContent").val();
+    	$("#txtContent").remove();
     	marked.setOptions({
 			gfm: true,
 			highlight: function (code, lang) {
@@ -264,6 +265,6 @@ vertical-align: top;
 </div>
 
 
-<textarea style="heght:0px" id="txtContent">{{content}}</textarea>
+<textarea style="height:0px; width:0px; left:-100px; position:absolute" id="txtContent">{{content}}</textarea>
   </body>
 </html>
