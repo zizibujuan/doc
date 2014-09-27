@@ -105,7 +105,9 @@ public class FileServlet extends BaseServlet {
 			return;
 		}else if(path.segmentCount() == 3){
 			if(path.segment(0).equals("edit")){
-				String sFileId = path.segment(2);
+				String loginName = path.segment(1);
+				String fileName = path.segment(2);
+				String sFileId = fileName;
 				if(sFileId.endsWith(".md")){
 					sFileId = sFileId.substring(0, sFileId.length()-3);
 				}
@@ -114,8 +116,8 @@ public class FileServlet extends BaseServlet {
 				FileInfo fileInfo = fileService.get(fileId);
 				
 				String docRootPath = applicationPropertyService.getForString(GitConstants.KEY_DOC_REPO_ROOT);
-				String gitRepoPath = docRootPath + path.segment(0) + "/" + DEFAULT_DOC_GIT_NAME;
-				String realFilePath = gitRepoPath + "/" + path.segment(1);
+				String gitRepoPath = docRootPath + loginName + "/" + DEFAULT_DOC_GIT_NAME;
+				String realFilePath = gitRepoPath + "/" + fileName;
 				StringWriter fileWriter = new StringWriter();
 				File file = new File(realFilePath);
 				InputStream input = new FileInputStream(file);
