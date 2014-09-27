@@ -47,8 +47,20 @@ public class MustacheTemplate {
 	
 	private static String getHtml(String relativePath) throws IOException{
 		Bundle bundle = Activator.getContext().getBundle();
-		URL url = bundle.getResource("/web/" + relativePath);
+		String path = relativePath.startsWith("/") ? relativePath.substring(1) : relativePath;
+		URL url = bundle.getResource("web/" + path);
 		logger.info("url is:" + url);
+		
+		InputStream a = new MustacheTemplate().getClass().getResourceAsStream("/web/" + path);
+		logger.info("class:" + a);
+		
+		Object s = bundle.getEntryPaths("/");
+		logger.info("paths：s" + s);
+		
+		URL url1 = bundle.getEntry("web/" + path);
+		logger.info("entry:" + url1);
+				
+		
 		InputStream in = url.openStream();
 		Writer writer = new StringWriter();
 		IOUtils.copy(in, writer, "utf-8");
