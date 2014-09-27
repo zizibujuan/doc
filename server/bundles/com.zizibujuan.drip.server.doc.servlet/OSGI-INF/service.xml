@@ -15,14 +15,6 @@
 		policy="dynamic" />
 	
 	<reference 
-		bind="setApplicationPropertyService" 
-		unbind="unsetApplicationPropertyService" 
-		cardinality="0..1" 
-		interface="com.zizibujuan.cm.server.service.ApplicationPropertyService" 
-		name="applicationPropertyService" 
-		policy="dynamic" />
-		
-	<reference 
 		bind="setFileService"
 		unbind="unsetFileService" 
 		cardinality="0..1" 

@@ -1,16 +1,10 @@
 package com.zizibujuan.drip.server.doc.configurator.servlet;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -21,13 +15,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
+import com.zizibujuan.drip.client.doc.resource.MustacheTemplate;
 import com.zizibujuan.drip.server.doc.model.FileInfo;
 import com.zizibujuan.drip.server.doc.service.FileService;
 import com.zizibujuan.drip.server.doc.servlet.ServiceHolder;
@@ -44,7 +35,6 @@ import com.zizibujuan.drip.server.util.PageInfo;
  */
 public class WelcomeFileFilter implements Filter {
 
-	private static final Logger logger = LoggerFactory.getLogger(WelcomeFileFilter.class);
 	private FileService fileService;
 	
 	@Override
@@ -63,19 +53,8 @@ public class WelcomeFileFilter implements Filter {
 			httpResponse.setHeader("Cache-Control", "no-cache"); //$NON-NLS-1$ //$NON-NLS-2$
 			httpResponse.setHeader("Cache-Control", "no-store"); //$NON-NLS-1$ //$NON-NLS-2$
 			
-			InputStream in = httpRequest.getSession().getServletContext().getResourceAsStream("/doc/index.html");
-			logger.info("/doc/index.html:" + in);
-			InputStream blobStream = httpRequest.getSession().getServletContext().getResourceAsStream("/doc/files/blob.html");
-			logger.info("/doc/files/blob.html:" + blobStream);
-			Set<String> s =httpRequest.getSession().getServletContext().getResourcePaths("/");
-			logger.info(s.toString());
-			
-			Writer sWriter = new StringWriter();
-			IOUtils.copy(in, sWriter, "UTF-8");
-			StringReader reader = new StringReader(sWriter.toString());
-			
 			MustacheFactory mf = new DefaultMustacheFactory();
-			Mustache mustache = mf.compile(reader, "doc_index_html");
+			Mustache mustache = mf.compile(MustacheTemplate.getReader("/doc/index.html"), "doc_index_html");
 			
 			response.setCharacterEncoding("utf-8");
 			Writer writer = response.getWriter();
@@ -106,9 +85,8 @@ public class WelcomeFileFilter implements Filter {
 	}
 
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {
+	public void init(FilterConfig config) throws ServletException {
 		fileService = ServiceHolder.getDefault().getFileService();
-		
 	}
 
 }

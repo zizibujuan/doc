@@ -7,6 +7,7 @@ Bundle-Activator: com.zizibujuan.drip.server.doc.configurator.Activator
 Bundle-Vendor: ZIZIBUJUAN
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.github.mustachejava,
+ com.zizibujuan.drip.client.doc.resource,
  com.zizibujuan.drip.server.doc.model,
  com.zizibujuan.drip.server.doc.service,
  com.zizibujuan.drip.server.doc.servlet,

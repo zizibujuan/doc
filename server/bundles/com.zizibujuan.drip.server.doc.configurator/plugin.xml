@@ -47,10 +47,6 @@
          point="org.eclipse.equinox.http.registry.filters">
       <filter
             alias="/"
-            class="com.zizibujuan.drip.server.doc.servlet.CacheMustacheFilter">
-      </filter>
-      <filter
-            alias="/"
             class="com.zizibujuan.drip.server.doc.configurator.servlet.RestHtmlFilter">
       </filter>
       <filter

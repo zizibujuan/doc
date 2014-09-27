@@ -4,13 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Reader;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,14 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.eclipse.core.runtime.IPath;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import com.zizibujuan.cm.server.service.ApplicationPropertyService;
 import com.zizibujuan.cm.server.servlets.CMServiceHolder;
+import com.zizibujuan.drip.client.doc.resource.MustacheTemplate;
 import com.zizibujuan.drip.server.doc.model.FileInfo;
 import com.zizibujuan.drip.server.doc.service.FileService;
 import com.zizibujuan.drip.server.util.constant.GitConstants;
@@ -40,7 +36,6 @@ import com.zizibujuan.drip.server.util.servlet.BaseServlet;
 public class BlobServlet extends BaseServlet {
 	private static final long serialVersionUID = -2241539925566713677L;
 
-	private static final Logger logger = LoggerFactory.getLogger(BlobServlet.class);
 	private static final String DEFAULT_DOC_GIT_NAME = "default";
 	private ApplicationPropertyService applicationPropertyService;
 	private FileService fileService;
@@ -62,9 +57,6 @@ public class BlobServlet extends BaseServlet {
 				sFileId = sFileId.substring(0, sFileId.length()-3);
 			}
 			
-
-			
-			
 			Long fileId = Long.valueOf(sFileId);
 			FileInfo fileInfo = fileService.get(fileId);
 			
@@ -79,9 +71,8 @@ public class BlobServlet extends BaseServlet {
 			//fileInfo.setContent(writer.toString());
 			//fileInfo.setLongSize(file.length());
 
-			Reader reader = new StringReader(MustacheTemplate.get("/doc/files/blob.html"));
 			MustacheFactory mf = new DefaultMustacheFactory();
-			Mustache mustache = mf.compile(reader, "doc_files_blob_html");
+			Mustache mustache = mf.compile(MustacheTemplate.getReader("/doc/files/blob.html"), "doc_files_blob_html");
 			
 			resp.setCharacterEncoding("utf-8");
 			Writer writer = resp.getWriter();

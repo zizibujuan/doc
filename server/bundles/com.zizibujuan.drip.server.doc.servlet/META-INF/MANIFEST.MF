@@ -9,6 +9,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: com.github.mustachejava,
  com.zizibujuan.cm.server.service,
  com.zizibujuan.cm.server.servlets,
+ com.zizibujuan.drip.client.doc.resource,
  com.zizibujuan.drip.server.doc.model,
  com.zizibujuan.drip.server.doc.service,
  com.zizibujuan.drip.server.util,
