@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.zizibujuan.drip.server.doc.model.FileInfo;
 import com.zizibujuan.drip.server.util.PageInfo;
+import com.zizibujuan.useradmin.server.model.UserInfo;
 
 /**
  * 文档管理数据访问接口
@@ -62,5 +63,14 @@ public interface FileDao {
 	 * @return 如果更新成功，则返回<code>true</code>;否则返回<code>false</code>
 	 */
 	boolean update(Long id, FileInfo fileInfo);
+
+	
+	/**
+	 * 获取笔记的协作者
+	 * 
+	 * @param fileId 笔记标识
+	 * @return 协作者标识
+	 */
+	List<Long> getAuthors(Long fileId);
 	
 }

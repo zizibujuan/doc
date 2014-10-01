@@ -14,6 +14,7 @@ import com.zizibujuan.drip.server.util.dao.DatabaseUtil;
 import com.zizibujuan.drip.server.util.dao.PreparedStatementSetter;
 import com.zizibujuan.drip.server.util.dao.RowMapper;
 import com.zizibujuan.drip.server.util.dao.exception.DataAccessException;
+import com.zizibujuan.useradmin.server.model.UserInfo;
 
 /**
  * 文档管理数据访问实现类
@@ -119,14 +120,36 @@ public class FileDaoImpl extends AbstractDao implements FileDao {
 			+ "(?, now(), ?)";
 	@Override
 	public Long add(final FileInfo fileInfo) {
-		return DatabaseUtil.insert(getDataSource(), SQL_INSERT_FILE_INFO, new PreparedStatementSetter() {
-			
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, fileInfo.getTitle());
-				ps.setLong(2, fileInfo.getCreateUserId());
-			}
-		});
+		Long id = null;
+		Connection con = null;
+		try{
+			con = getDataSource().getConnection();
+			con.setAutoCommit(false);
+			id = DatabaseUtil.insert(con, SQL_INSERT_FILE_INFO, new PreparedStatementSetter() {
+				
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setString(1, fileInfo.getTitle());
+					ps.setLong(2, fileInfo.getCreateUserId());
+				}
+			});
+			final Long finalId = id;
+			DatabaseUtil.insert(con, SQL_INSERT_UPDATE_FILE_LOG, new PreparedStatementSetter() {
+				
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setLong(1, finalId);
+					ps.setLong(2, fileInfo.getUpdateUserId());
+				}
+			} );
+			con.commit();
+		}catch(Exception e){
+			DatabaseUtil.safeRollback(con);
+			throw new DataAccessException(e);
+		}finally{
+			DatabaseUtil.closeConnection(con);
+		}
+		return id;
 	}
 	
 	private static final String SQL_UPDATE_FILE_TITLE = "UPDATE "
@@ -173,6 +196,27 @@ public class FileDaoImpl extends AbstractDao implements FileDao {
 			DatabaseUtil.closeConnection(con);
 		}
 		return result;
+	}
+	
+	private static final String SQL_LIST_AUTHOR = "select distinct UPT_USER_ID from DRIP_DOC_FILE_UPDATE_LOG where DBID=? order by UPT_TM";
+	@Override
+	public List<Long> getAuthors(final Long fileId) {
+		
+		return DatabaseUtil.query(getDataSource(), SQL_LIST_AUTHOR, new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setLong(1, fileId);
+			}
+		}, new RowMapper<Long>() {
+
+			@Override
+			public Long mapRow(ResultSet rs, int rowNum)
+					throws SQLException {
+				Long userId = rs.getLong(1);
+				return userId;
+			}
+		});
 	}
 	
 

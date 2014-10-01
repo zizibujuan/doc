@@ -1,5 +1,6 @@
 package com.zizibujuan.drip.server.doc.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -100,6 +101,16 @@ public class FileServiceImpl implements FileService {
 		// 更新文件标题等基本信息
 		result = fileDao.update(fileInfo.getId(), fileInfo);
 		return result;
+	}
+	
+	@Override
+	public List<UserInfo> getAuthors(Long fileId) {
+		List<Long> userIds = fileDao.getAuthors(fileId);
+		List<UserInfo> users = new ArrayList<UserInfo>();
+		for(Long id : userIds){
+			users.add(userService.getById(id));
+		}
+		return users;
 	}
 	
 	public void setFileDao(FileDao fileDao) {

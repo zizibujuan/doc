@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.zizibujuan.drip.server.doc.model.FileInfo;
 import com.zizibujuan.drip.server.util.PageInfo;
+import com.zizibujuan.useradmin.server.model.UserInfo;
 
 /**
  * 文件管理服务接口
@@ -43,4 +44,12 @@ public interface FileService {
 	 * @return 成功标识
 	 */
 	boolean update(FileInfo fileInfo);
+
+	/**
+	 * 获取笔记的协作者
+	 * 
+	 * @param fileId 笔记标识
+	 * @return 协作者信息列表
+	 */
+	List<UserInfo> getAuthors(Long fileId);
 }

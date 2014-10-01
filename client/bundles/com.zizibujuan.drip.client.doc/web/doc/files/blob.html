@@ -262,6 +262,15 @@ vertical-align: top;
 			<a href="/" style="float:left;position: absolute;left:10px">
 		   		<span class="glyphicon glyphicon-chevron-left returnUrl"></span>
 		   	</a>
+		   	<!-- 显示协作者 -->
+		   	<div>
+		   		<div>
+		   			<strong>协作者</strong> 
+		   			{{#authors}}
+		   				<img alt="{{nickName}}" src="{{smallImageUrl}}" height="20px">
+		   			{{/authors}}
+		   		</div>
+		   	</div>
 			<article id="blob" class="markdown-body">{{content}}</article>
 		</div>
 	</div>

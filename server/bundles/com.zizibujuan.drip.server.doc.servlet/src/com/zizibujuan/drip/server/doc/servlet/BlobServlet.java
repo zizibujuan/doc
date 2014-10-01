@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -26,6 +27,7 @@ import com.zizibujuan.drip.server.doc.model.FileInfo;
 import com.zizibujuan.drip.server.doc.service.FileService;
 import com.zizibujuan.drip.server.util.constant.GitConstants;
 import com.zizibujuan.drip.server.util.servlet.BaseServlet;
+import com.zizibujuan.useradmin.server.model.UserInfo;
 
 /**
  * 查看文件内容
@@ -77,10 +79,12 @@ public class BlobServlet extends BaseServlet {
 			resp.setCharacterEncoding("utf-8");
 			Writer writer = resp.getWriter();
 			
+			List<UserInfo> authors = fileService.getAuthors(fileId);
 			
-			Map<String, String> blob = new HashMap<String, String>();
+			Map<String, Object> blob = new HashMap<String, Object>();
 			blob.put("content", fileWriter.toString());
 			blob.put("title", fileInfo.getTitle());
+			blob.put("authors", authors);
 			mustache.execute(writer, blob);
 			writer.flush();		
 			

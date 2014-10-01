@@ -11,6 +11,7 @@ Import-Package: com.zizibujuan.drip.server.doc.dao,
  com.zizibujuan.drip.server.util,
  com.zizibujuan.drip.server.util.dao,
  com.zizibujuan.drip.server.util.dao.exception,
+ com.zizibujuan.useradmin.server.model,
  org.apache.commons.lang3,
  org.apache.commons.lang3.time,
  org.osgi.framework;version="1.3.0"
