@@ -165,14 +165,12 @@ vertical-align: top;
 <div style="height: inherit;">
 	<div class="container" style="height: inherit;">
 		<!-- 工具条 开始 -->
-		<div style="margin-top: 10px; margin-bottom: 10px" class="clearfix">
+		<div style="margin-top: 5px; margin-bottom: 10px" class="clearfix">
 		
 		 <div style="float: left">
-		   		<a id="hrefReturn" href="">
-		   			<span class="glyphicon glyphicon-chevron-left returnUrl"></span>
-		   		</a>
-		   		<a href="/" style="float:left;">瘦笔记 · 码农篇</a>
-		   </div>
+		   		<a href="/" style="text-decoration: none; font-weight: bold;font-size: 25px; color: #333">瘦笔记</a>
+				<span style="color: gray">码农篇</span>
+		 </div>
 		   
 			<div style="float: right; padding-right:20px;">
 				<a id="linkUser" href="" style="padding: 4px 8px;
@@ -189,7 +187,9 @@ vertical-align: top;
 		<!-- 工具条 结束 -->
 		
 		<div id="fileForm">
-		
+			<a id="hrefReturn" href="" style="float:left;position: absolute;left:10px">
+		   		<span class="glyphicon glyphicon-chevron-left returnUrl"></span>
+		   	</a>
 			<form role="form">
 			  <div class="form-group">
 			    <label for="txtTitle">标题</label>
