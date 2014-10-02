@@ -138,7 +138,7 @@ public class FileDaoImpl extends AbstractDao implements FileDao {
 				@Override
 				public void setValues(PreparedStatement ps) throws SQLException {
 					ps.setLong(1, finalId);
-					ps.setLong(2, fileInfo.getUpdateUserId());
+					ps.setLong(2, fileInfo.getCreateUserId());
 				}
 			} );
 			con.commit();
