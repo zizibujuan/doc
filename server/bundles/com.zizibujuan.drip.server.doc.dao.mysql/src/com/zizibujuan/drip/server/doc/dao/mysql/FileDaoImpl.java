@@ -14,7 +14,6 @@ import com.zizibujuan.drip.server.util.dao.DatabaseUtil;
 import com.zizibujuan.drip.server.util.dao.PreparedStatementSetter;
 import com.zizibujuan.drip.server.util.dao.RowMapper;
 import com.zizibujuan.drip.server.util.dao.exception.DataAccessException;
-import com.zizibujuan.useradmin.server.model.UserInfo;
 
 /**
  * 文档管理数据访问实现类
