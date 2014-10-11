@@ -92,12 +92,25 @@ public class FileServiceImpl implements FileService {
 						fileInfo.getCommitMessage());
 	}
 	
+	private void addFileToDefaultGitRepo(UserInfo userInfo, String firstCommiterLoginName, FileInfo fileInfo){
+		String docRootPath = applicationPropertyService.getForString(GitConstants.KEY_DOC_REPO_ROOT);
+		String relativePath = firstCommiterLoginName + "/" + DEFAULT_DOC_GIT_NAME;
+		GitUtils.commit(docRootPath, 
+						relativePath, 
+						fileInfo.getFileName(), 
+						fileInfo.getContent(), 
+						userInfo.getLoginName(), 
+						userInfo.getEmail(), 
+						fileInfo.getCommitMessage());
+	}
+	
 	@Override
 	public boolean update(FileInfo fileInfo) {
 		boolean result = false;
 		// 如果文件内容发生了变化，则保存；如果没有变化，则不保存。
-		UserInfo userInfo = userService.getById(fileInfo.getUpdateUserId());
-		addFileToDefaultGitRepo(userInfo, fileInfo);
+		UserInfo userInfo = userService.getById(fileInfo.getUpdateUserId()); // 当前编辑的用户信息
+		
+		addFileToDefaultGitRepo(userInfo, fileInfo.getCreateUserName(), fileInfo);
 		// 更新文件标题等基本信息
 		result = fileDao.update(fileInfo.getId(), fileInfo);
 		return result;

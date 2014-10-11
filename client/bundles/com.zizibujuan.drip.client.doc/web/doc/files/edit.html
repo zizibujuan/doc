@@ -104,6 +104,7 @@ vertical-align: top;
 		oldFileInfo.id = $("#fileId").val();
 		oldFileInfo.content = $("#txtContent").val();
 		oldFileInfo.title = $("#txtTitle").val();
+		oldFileInfo.createUserName = $("#createUserName").val();
 		
 		// 数据有效性校验
 		txtTitle.on("input", function(e){
@@ -148,6 +149,8 @@ vertical-align: top;
 		btnSave.click(function(e){
 			var newFileInfo = getFormData();
 			newFileInfo.id = oldFileInfo.id;
+			newFileInfo.createUserName = oldFileInfo.createUserName;
+			
 			$.ajax({url: "/files", data:$.toJSON(newFileInfo), type:"PUT"}).done(function(data){
 				// 修改成功后，跳转到blob页面
 				window.location.href = "/blob/" + loginName + "/" + fileName;
@@ -161,7 +164,8 @@ vertical-align: top;
 
 </head>
 <body style="background-color: #fff;">
-<input type="hidden" id="fileId" value="{{id}}">
+<input type="hidden" id="fileId" value="{{id}}" />
+<input type="hidden" id="createUserName" value="{{createUserName}}" />
 <div style="height: inherit;">
 	<div class="container" style="height: inherit;">
 		<!-- 工具条 开始 -->
