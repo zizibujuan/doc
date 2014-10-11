@@ -197,7 +197,7 @@ public class FileDaoImpl extends AbstractDao implements FileDao {
 		return result;
 	}
 	
-	private static final String SQL_LIST_AUTHOR = "select distinct UPT_USER_ID from DRIP_DOC_FILE_UPDATE_LOG where DBID=? order by UPT_TM";
+	private static final String SQL_LIST_AUTHOR = "select distinct UPT_USER_ID from DRIP_DOC_FILE_UPDATE_LOG where DOC_FILE_ID=? order by UPT_TM";
 	@Override
 	public List<Long> getAuthors(final Long fileId) {
 		
