@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+<extension
+         point="org.eclipse.equinox.http.registry.httpcontexts">
+         <httpcontext
+            id="com.zizibujuan.client.httpcontext.videojs">
+	         <resource-mapping
+	               bundle="com.zizibujuan.client.videojs"
+	               path="/static/videojs">
+	         </resource-mapping>
+         </httpcontext>
+    </extension>
+	<extension
+         point="org.eclipse.equinox.http.registry.resources">
+      <resource
+            alias="/videojs"
+            httpcontextId="com.zizibujuan.client.httpcontext.videojs">
+      </resource>
+    </extension>
+</plugin>
